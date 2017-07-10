@@ -1,0 +1,30 @@
+body{
+	padding: 0;
+	margin: 0;
+	background-color: black;
+}
+
+iframe{
+	position: absolute;
+	visibility: hidden;
+	bottom: 30px;
+	right: 10px;
+}
+
+button{
+	position: absolute;
+	bottom: 2px;
+	text-align: right;
+	border: 2px solid white;
+	background: none;
+	color: white;
+	border-radius: 4px;
+}
+
+#toggle_stream{
+	right: 10px;
+}
+
+#toggle_fs{
+	left: 10px;
+}

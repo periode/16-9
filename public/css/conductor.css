@@ -1,0 +1,18 @@
+body{
+	padding: 0;
+	margin: 0;
+	background-color: white;
+}
+
+
+button{
+	text-align: right;
+	border: 2px solid black;
+	background: none;
+	color: black;
+	border-radius: 4px;
+}
+
+button:active{
+	background-color: grey;
+}
