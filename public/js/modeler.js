@@ -82,7 +82,7 @@ function getTargetVertices(){
 
 function animateBackground(){
 	for(var i = 0; i < background.length; i++){
-		background[i].position.y = Math.sin(i + clock.getElapsedTime()*10) * 10;
+		background[i].position.y = Math.sin(i + clock.getElapsedTime()*10) * 1;
 	}
 }
 
@@ -143,4 +143,4 @@ var render = function(){
 // 	return date.getMilliseconds() - start_time;
 // }
 
-setTimeout(beginThree, 1000);
+//setTimeout(beginThree, 1000);

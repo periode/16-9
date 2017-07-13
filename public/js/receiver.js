@@ -14,5 +14,5 @@ socket.on('performer-start', function(){
 });
 
 function begin(){
-	start_gl("canvas1", "vTest", "fTest");
+	beginThree();
 }
