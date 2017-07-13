@@ -1,14 +1,48 @@
 body{
-	padding: 0;
+	padding: 20px;
 	margin: 0;
 	background-color: white;
+	font-family: 'Uni Sans Semibold', Trebuchet MS;
+}
+
+#left, #right{
+	width: 45%;
+	height: 100%;
+}
+
+#left{
+	float: left;
+}
+
+#right{
+	float: right;
+}
+
+hr{
+	border: 2px solid black;
+}
+
+.show{
+	background-color: black;
+	color: white;
+	padding: 2px;
+	text-align: center;
+}
+
+.section{
+	margin-bottom: 30px;
+	text-align: right;
+	background-color: #eeeeee;
+	width: 100%;
 }
 
 
 button{
 	text-align: right;
+	font-size: 18px;
+	font-weight: bold;
 	border: 2px solid black;
-	background: none;
+	background: #f3f3f3;
 	color: black;
 	border-radius: 4px;
 }

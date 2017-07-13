@@ -3,20 +3,25 @@
   <head>
     <title>NetViews 16:9</title>
     <link rel="stylesheet" href="css/main.css">
-    <script src='lib/jquery-3.2.1.min.js'></script>
+
+    <!-- LIBRARIES -->
     <script src='lib/socket.io.js'></script>
     <script src="lib/three.min.js"></script>
+    <script src="lib/EasePack.min.js"></script>
+    <script src="lib/TweenLite.min.js"></script>
     <script src="lib/OrbitControls.js"></script>
 
+    <!-- SCRIPTS -->
     <script src='js/receiver.js'></script>
     <script src='js/modeler.js'></script>
     <script src='js/interface.js'></script>
 
+    <!-- DATA -->
     <script src='data/colors.js'></script>
   </head>
   <body>
-	  <iframe width="280" height="158" src="https://www.youtube.com/embed/bblIAtjmoNo" frameborder="0" allowfullscreen></iframe>
-                <button id="toggle_stream" onclick="toggleLiveStream()">show stream</button>
-                <button id="toggle_fs" onclick="toggleFullScreen()">toggle fullscreen</button>
+	  <!-- <iframe width="280" height="158" src="https://www.youtube.com/embed/bblIAtjmoNo" frameborder="0" allowfullscreen></iframe> -->
+    <button id="toggle_stream" onclick="toggleLiveStream()">show stream</button>
+    <button id="toggle_fs" onclick="toggleFullScreen()">toggle fullscreen</button>
   </body>
 </html>
