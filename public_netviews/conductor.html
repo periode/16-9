@@ -19,19 +19,19 @@
 					init circle
 				</li>
 				<li>
-					fader for height of circle
+					fader for width of circle: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgScaleY(this.value)" /> 0<br>
 				</li>
 				<li>
-					fader for width of each individual
+					fader for width of each individual: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgScaleX(this.value)" /> 0<br>
 				</li>
 				<li>
-					fader for variation of height over sine
+					fader for variation of Z over sine: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgOscillCoeff(this.value)" /> 1<br>
 				</li>
 				<li>
-					fader for rotation on their own X axis or Y axis
+					fader for rotation on their own X axis or Y axis: target rotation<input id="slide" type="checkbox" value="0" onchange="toggleBgFlip()" /> off<br>
 				</li>
 				<li>
-					fader for animating colors ????
+					fader for animating colors n<input id="slide" type="checkbox" value="0" onchange="toggleBgColor()" /> off<br>
 				</li>
 				<li>
 					fading out colors into a darker tone
@@ -45,13 +45,16 @@
 					make mesh appear (starts at massive scale then zoom into?)
 				</li>
 				<li>
+					mesh wireframe toggle
+				</li>
+				<li>
 					make mesh rotate
 				</li>
 				<li>
 					make mesh distort
 				</li>
 				<li>
-					make mesh translate (aka have virtual positions) (first on 2D plane)
+					make mesh rotate around a center
 				</li>
 				<li>
 					system to change the nature of the mesh? do that every x amount of time

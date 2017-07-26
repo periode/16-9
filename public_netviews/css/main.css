@@ -6,7 +6,6 @@ body{
 
 iframe{
 	position: absolute;
-	visibility: hidden;
 	bottom: 30px;
 	right: 10px;
 }
