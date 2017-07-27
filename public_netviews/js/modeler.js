@@ -33,8 +33,8 @@ function begin(){
 	onWindowResize();
  	getOriginalVertices();
 	render();
- 	animateBackground();
-	animateGeometry();
+
+	// animateGeometry();
 
 }
 
@@ -49,8 +49,9 @@ function getOriginalVertices(){
 function initGeometry(){
 
 	//---------------------------- SHOW 1
-	initBackground();
+	// initBackground();
  	initIsocahedron();
+	initWorld();
 
 
 	//---------------------------- SHOW 2
@@ -58,7 +59,7 @@ function initGeometry(){
 }
 
 function initIsocahedron(){
-	geometry = new THREE.IcosahedronGeometry(20);
+	geometry = new THREE.IcosahedronGeometry(10);
 
 	for(var i = 0; i < geometry.faces.length; i++){
 		geometry.faces[i].color.setHex(COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)]);
@@ -68,6 +69,20 @@ function initIsocahedron(){
 	box = new THREE.Mesh(geometry, mat);
 	box.rotation.y += 0.25;
 	stage.add(box);
+}
+
+var world;
+
+function initWorld(){
+	let geom = new THREE.OctahedronGeometry(15);
+	for(var i = 0; i < geom.faces.length; i++){
+		geom.faces[i].color.setHex(COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)]);
+	}
+	let material = new THREE.LineBasicMaterial({vertexColors: THREE.FaceColors, linewidth: 0.1});
+	material.wireframe = true;
+	// material.linewidth = 1;
+	world = new THREE.Mesh(geom, material);
+	stage.add(world);
 }
 
 function initSphere(){
@@ -187,6 +202,7 @@ var bg_scale_y = 0;
 var bg_oscillation_coeff = 1;
 var bg_flip_toggle = false;
 var bg_color_toggle = false;
+var bg_black = false;
 
 function animateBackground(){
 	var lfo = Math.cos(clock.getElapsedTime()*0.05);
@@ -206,9 +222,37 @@ function animateBackground(){
 	}
 }
 
+var world_is_rotating = true;
+
+function animateWorld(){
+	if(world_is_rotating == true){
+		TweenLite.to(world.rotation, 0.5, {x: 0, y: world.rotation.y + Math.PI, ease: Back.easeInOut});
+		world_is_rotating = false;
+		setTimeout(function(){world_is_rotating = true}, 2000);
+	}
+}
+
+var iso_rotation_coeff = 1;
+var iso_gravitation_coeff = 40;
+var iso_gravitation_speed = 2;
+
 function animateIsocahedron(){
-	box.rotation.x += 0.025;
-	box.rotation.y += 0.01;
+	box.rotation.x += 0.025 * iso_rotation_coeff;
+	box.rotation.y += 0.01 * iso_rotation_coeff;
+
+	if(iso_gravitation_coeff > 0){
+		for(var u = 0; u < 1; u += 0.01){
+			for(var v = 0; v < 1; v += 0.01){
+				var theta = 2 * Math.PI * u + clock.getElapsedTime() * iso_gravitation_speed;
+				var phi = Math.PI * v + clock.getElapsedTime() * iso_gravitation_speed;
+				box.position.x = Math.sin(theta) * Math.cos(phi) * iso_gravitation_coeff;
+				box.position.y = Math.sin(phi) * iso_gravitation_coeff;
+				box.position.z = Math.cos(phi) * Math.cos(theta) * iso_gravitation_coeff;
+			}
+		}
+
+	}
+
 	geometry.verticesNeedUpdate = true;
 }
 
@@ -235,11 +279,6 @@ function initBackground(){
 			background.push(mesh);
 			stage.add(mesh);
 	}
-
-	// var img_mat = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('data/img/background_large.jpg')});
-	// var img_geom = new THREE.PlaneGeometry(900, 600, 2);
-	// var img_mesh = new THREE.Mesh(img_geom, img_mat);
-	// stage.add(img_mesh);
 }
 
 function initLights(){
@@ -262,9 +301,11 @@ function onWindowResize(){
 }
 
 var render = function(){
+
 	requestAnimationFrame(render);
 	animateIsocahedron();
 	animateBackground();
+	animateWorld();
 	renderer.render(stage, camera);
 };
 
