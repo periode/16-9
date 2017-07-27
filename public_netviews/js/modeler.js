@@ -113,6 +113,10 @@ function introduceComet(){
 	TweenLite.to(comet.scale, 6, {x:1, y:1, z:1, ease: Power2.easeOut});
 }
 
+function toggleComet(){
+	comet.material.visible = !comet.material.visible;
+}
+
 function toggleCometWireframe(){
 	comet.material.wireframe = !comet.material.wireframe;
 }
@@ -142,6 +146,10 @@ function initWorld(){
 function introduceWorld(){
 	stage.add(world);
 	TweenLite.to(world.scale, 4, {x:1, y:1, z:1, ease: Power2.easeOut});
+}
+
+function toggleWorld(){
+	world.material.visible = !world.material.visible;
 }
 
 function toggleWorldWireframe(){
@@ -176,6 +184,12 @@ function initTraces(){
 function introduceTraces(){
 	for(var i = 0; i < traces.length; i++){
 		stage.add(traces[i]);
+	}
+}
+
+function toggleTraces(){
+	for(var i = 0; i < traces.length; i++){
+		traces[i].material.visible = !traces[i].material.visible;
 	}
 }
 

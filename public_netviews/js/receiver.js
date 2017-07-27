@@ -33,8 +33,27 @@ socket.on('introduce', function(value){
 	}
 });
 
-socket.on('wireframe-toggle', function(value){
+socket.on('toggle', function(value){
+	switch(value){
+		case 'background':
+			toggleBackground();
+			break;
+		case 'comet':
+			toggleComet();
+			break;
+		case 'world':
+			toggleWorld();
+			break;
+		case 'traces':
+			toggleTraces();
+			break;
+		default:
+			console.log('unexpected value for wireframe toggle');
+			break;
+	}
+});
 
+socket.on('wireframe-toggle', function(value){
 	switch(value){
 		case 'background':
 			toggleBgWireframe();

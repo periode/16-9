@@ -13,7 +13,8 @@
 			<h2 class="show">SHOW 1</h2>
 			<hr />
 			<h3 class="section">BACKGROUND</h3>
-			<button onclick="introduce('background')">start</button>
+			<button onclick="introduce('background')">start</button><br />
+			<input type="checkbox" onchange="toggle('background')">start</button>
 			<ul>
 				<li>
 					height: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgScaleY(this.value)" /> 0<br>
@@ -33,7 +34,8 @@
 			</ul>
 			<hr />
 			<h3 class="section">COMET</h3>
-			<button onclick="introduce('comet')">start</button>
+			<button onclick="introduce('comet')">start</button><br />
+			<input type="checkbox" onchange="toggle('comet')">start</button>
 			<ul>
 				<li>
 					wireframe<input type="checkbox" value="0" onchange="toggleWireframe('comet')" /><br>
@@ -56,7 +58,8 @@
 			</ul>
 			<hr />
 			<h3 class="section">WORLD</h3>
-			<button onclick="introduce('world')">start</button>
+			<button onclick="introduce('world')">start</button><br />
+			<input type="checkbox" onchange="toggle('world')">start</button>
 			<ul>
 				<li>
 					wireframe<input type="checkbox" value="0" onchange="toggleWireframe('world')" /> off<br>
@@ -74,6 +77,8 @@
 			<hr />
 			<h3 class="section">TRACES</h3>
 			<button onclick="introduce('traces')">start</button>
+			<br />
+			<input type="checkbox" onchange="toggle('traces')">start</button>
 			<ul>
 				<li>
 					remove shapes

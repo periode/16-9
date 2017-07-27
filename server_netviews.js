@@ -32,6 +32,10 @@ io.sockets.on('connection', function(socket){
 		socket.broadcast.emit('introduce', data);
 	});
 
+	socket.on('toggle', function(data){
+		socket.broadcast.emit('toggle', data);
+	});
+
 	// -------------------------------------- BACKGROUND
 	// -------------------------------------- BACKGROUND
 	// -------------------------------------- BACKGROUND

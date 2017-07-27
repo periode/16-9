@@ -22,6 +22,10 @@ function introduce(actor){
 	socket.emit('introduce', actor);
 }
 
+function toggle(actor){
+	socket.emit('toggle', actor);
+}
+
 // -------------------------------------- BACKGROUND
 // -------------------------------------- BACKGROUND
 // -------------------------------------- BACKGROUND
