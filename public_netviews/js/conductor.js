@@ -37,3 +37,8 @@ function toggleBgWireframe(){
 
 	socket.emit('bg-wireframe-toggle', bg_wireframe_toggle);
 }
+
+
+function setClearcolor(value){
+	socket.emit('clear-color', value);
+}

@@ -39,3 +39,7 @@ socket.on('bg-flip-toggle', function(value){
 socket.on('bg-wireframe-toggle', function(value){
 	toggleBgWireframe();
 });
+
+socket.on('clear-color', function(value){
+	clearColor(value);
+});

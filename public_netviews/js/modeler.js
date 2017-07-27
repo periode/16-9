@@ -15,6 +15,8 @@ var sun, point, ambient;
 function begin(){
 	// document.getElementsByTagName('iframe')[0].style.visibility = "hidden";
 	stage = new THREE.Scene();
+	stage.background = new THREE.Color('white');
+
 	camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1600);
 	camera.position.z = 100;
 
@@ -74,14 +76,14 @@ function initIsocahedron(){
 	stage.add(box);
 }
 
-var backdrop;
+var spheredrop;
 
-function initBackdrop(){
+function initSpheredrop(){
 	var geometry = new THREE.SphereGeometry(50, 32, 32);
 	var material = new THREE.MeshBasicMaterial({color: 0x000000});
-	backdrop = new THREE.Mesh(geometry, material);
-	backdrop.position.z = -100;
-	stage.add(backdrop);
+	spheredrop = new THREE.Mesh(geometry, material);
+	spheredrop.position.z = -100;
+	stage.add(spheredrop);
 }
 
 var world;
@@ -205,6 +207,14 @@ function initSphere(){
 
 		this.bufferMesh = new THREE.Mesh(this.bufferGeom, bufferMat);
 		this.stage.add(this.bufferMesh);
+}
+
+function clearColor(value){
+	if(value == "black")
+		stage.background.setHex(0x000000);
+
+	if(value == "random")
+		stage.background.setHex(COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)]);
 }
 
 function animateGeometry(){
@@ -362,6 +372,18 @@ function initBackground(){
 			background.push(mesh);
 			stage.add(mesh);
 	}
+}
+
+var backdrop;
+
+function initBackdrop(){
+	var mat = new THREE.MeshBasicMaterial();
+
+
+	var geom = new THREE.BoxGeometry(window.innerWidth*2, window.innerHeight*2, 1, 2, 2, 2);
+	backdrop = new THREE.Mesh(geom, mat);
+	backdrop.position.z = -200;
+	stage.add(backdrop);
 }
 
 function initLights(){

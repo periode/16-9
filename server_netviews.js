@@ -39,4 +39,8 @@ io.sockets.on('connection', function(socket){
 	socket.on('bg-wireframe-toggle', function(data) {
 		socket.broadcast.emit('bg-wireframe-toggle', data);
 	});
+
+	socket.on('clear-color', function(data) {
+		socket.broadcast.emit('clear-color', data);
+	});
 });
