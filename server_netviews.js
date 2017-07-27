@@ -81,4 +81,22 @@ io.sockets.on('connection', function(socket){
 	socket.on('comet-gravitation-speed', function(data) {
 		socket.broadcast.emit('comet-gravitation-speed', data);
 	});
+
+	// -------------------------------------- WORLD
+	// -------------------------------------- WORLD
+	// -------------------------------------- WORLD
+	// -------------------------------------- WORLD
+
+	socket.on('world-rotation', function(data){
+		socket.broadcast.emit('world-rotation', data);
+	});
+
+	socket.on('world-geometry', function(data){
+		socket.broadcast.emit('world-geometry', data);
+	});
+
+	// -------------------------------------- TRACES
+	// -------------------------------------- TRACES
+	// -------------------------------------- TRACES
+	// -------------------------------------- TRACES
 });

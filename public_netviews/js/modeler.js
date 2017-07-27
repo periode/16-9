@@ -93,6 +93,12 @@ function toggleBackground(){
 	}
 }
 
+function toggleBgWireframe(){
+	for(var i = 0; i < background.length; i++){
+		background[i].material.wireframe = !background[i].material.wireframe;
+	}
+}
+
 function initComet(){
 	geometry = new THREE.IcosahedronGeometry(10);
 
@@ -134,7 +140,7 @@ function initWorld(){
 	for(var i = 0; i < geom.faces.length; i++){
 		geom.faces[i].color.setHex(COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)]);
 	}
-	let material = new THREE.LineBasicMaterial({vertexColors: THREE.FaceColors, linewidth: 0.1});
+	let material = new THREE.LineBasicMaterial({vertexColors: THREE.FaceColors});
 	material.wireframe = true;
 	world = new THREE.Mesh(geom, material);
 	world.scale.x = 0.01;
@@ -319,21 +325,59 @@ function animateBackground(){
 	}
 }
 
-function toggleBgWireframe(){
-	for(var i = 0; i < background.length; i++){
-		background[i].material.wireframe = !background[i].material.wireframe;
-	}
-}
+// -------------------------------------- WORLD
+// -------------------------------------- WORLD
+// -------------------------------------- WORLD
+// -------------------------------------- WORLD
 
 var world_is_rotating = true;
+var world_rotation_x_coeff = 0;
+var world_rotation_y_coeff = 0;
+var world_rotation_z_coeff = 0;
 
 function animateWorld(){
 	if(world_is_rotating == true){
-		TweenLite.to(world.rotation, 0.5, {x: Math.floor(Math.random()*8)/4*Math.PI, y: Math.floor(Math.random()*8)/4*Math.PI, ease: Power3.easeInOut});
+		TweenLite.to(world.rotation, 0.5, {x: Math.floor(Math.random()*world_rotation_x_coeff)/4*Math.PI, y: Math.floor(Math.random()*world_rotation_y_coeff)/4*Math.PI, z: Math.floor(Math.random()*world_rotation_z_coeff)/4*Math.PI, ease: Power3.easeInOut});
 		world_is_rotating = false;
 		setTimeout(function(){world_is_rotating = true}, 2000);
 	}
 }
+
+function switchWorldGeometry(){
+	var is_wireframe = world.material.wireframe;
+	var rand = Math.floor(Math.random()*4);
+	var new_geom;
+
+	switch(rand){
+		case 0:
+			new_geom = new THREE.DodecahedronGeometry(15);
+			break;
+		case 1:
+			new_geom = new THREE.OctahedronGeometry(15);
+			break;
+		case 2:
+			new_geom = new THREE.TetrahedronGeometry(15);
+			break;
+		case 3:
+			new_geom = new THREE.TorusGeometry(15, 5, 4, 4);
+			break;
+		default:
+			console.log("error switching world geometry");
+			break;
+	}
+
+	for(var i = 0; i < new_geom.faces.length; i++){
+		new_geom.faces[i].color.setHex(COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)]);
+	}
+	let mat = new THREE.MeshBasicMaterial({vertexColors: THREE.FaceColors});
+	mat.wireframe = is_wireframe;
+	world.geometry = new_geom;
+	world.material = mat
+}
+// -------------------------------------- COMET
+// -------------------------------------- COMET
+// -------------------------------------- COMET
+// -------------------------------------- COMET
 
 var comet_rotation_coeff = 0;
 var comet_gravitation_coeff = 0;
@@ -388,7 +432,10 @@ function getTargetVertices(){
 }
 
 
-
+// -------------------------------------- TRACES
+// -------------------------------------- TRACES
+// -------------------------------------- TRACES
+// -------------------------------------- TRACES
 // CONTROLS
 var traces_oscill_speed_x = 0.8;
 var traces_oscill_coeff_x = 0.1;

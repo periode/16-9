@@ -65,10 +65,12 @@
 					wireframe<input type="checkbox" value="0" onchange="toggleWireframe('world')" /> off<br>
 				</li>
 				<li>
-					transform into other geometry?
+					<button onclick="switchWorldGeometry()">switch geometry</button>
 				</li>
 				<li>
-					start rotations X Y Z
+					rotation coeff x: <input id="slide" type="range" min="0" max="8" step="1" value="0" onchange="updateWorldRotation('x', this.value)" /> 0<br>
+					rotation coeff y: <input id="slide" type="range" min="0" max="8" step="1" value="0" onchange="updateWorldRotation('y', this.value)" /> 0<br>
+					rotation coeff z: <input id="slide" type="range" min="0" max="8" step="1" value="0" onchange="updateWorldRotation('z', this.value)" /> 0<br>
 				</li>
 				<li>
 					reconsider if i really need all these added shapes

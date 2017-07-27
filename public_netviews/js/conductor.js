@@ -75,3 +75,21 @@ function updateCometGravitationCoeff(value){
 function updateCometGravitationSpeed(value){
 	socket.emit('comet-gravitation-speed', value);
 }
+
+// -------------------------------------- WORLD
+// -------------------------------------- WORLD
+// -------------------------------------- WORLD
+// -------------------------------------- WORLD
+
+function updateWorldRotation(_axis, _value){
+	socket.emit('world-rotation', {axis:_axis, value:_value});
+}
+
+function switchWorldGeometry(value){
+	socket.emit('world-geometry', value);
+}
+
+// -------------------------------------- TRACES
+// -------------------------------------- TRACES
+// -------------------------------------- TRACES
+// -------------------------------------- TRACES

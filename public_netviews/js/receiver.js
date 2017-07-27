@@ -125,7 +125,28 @@ socket.on('comet-gravitation-speed', function(value){
 	comet_gravitation_speed = value;
 });
 
+// -------------------------------------- WORLD
+// -------------------------------------- WORLD
+// -------------------------------------- WORLD
+// -------------------------------------- WORLD
 
+socket.on('world-rotation', function(data){
+	if(data.axis == 'x')
+		world_rotation_x_coeff =  data.value;
+	if(data.axis == 'y')
+		world_rotation_y_coeff =  data.value;
+	if(data.axis == 'z')
+		world_rotation_z_coeff =  data.value;
+});
+
+socket.on('world-geometry', function(data){
+	switchWorldGeometry();
+});
+
+// -------------------------------------- TRACES
+// -------------------------------------- TRACES
+// -------------------------------------- TRACES
+// -------------------------------------- TRACES
 
 
 socket.on('clear-color', function(value){
