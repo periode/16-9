@@ -7,6 +7,8 @@ var background = [];
 var box;
 var geometry;
 
+var traces = [];
+
 // LIGHTS
 var sun, point, ambient;
 
@@ -31,7 +33,7 @@ function begin(){
 	initGeometry();
 	initLights();
 	onWindowResize();
- 	getOriginalVertices();
+ // 	getOriginalVertices();
 	render();
 
 	// animateGeometry();
@@ -50,8 +52,9 @@ function initGeometry(){
 
 	//---------------------------- SHOW 1
 	// initBackground();
- 	initIsocahedron();
+ // 	initIsocahedron();
 	initWorld();
+	initTraces();
 
 
 	//---------------------------- SHOW 2
@@ -71,6 +74,16 @@ function initIsocahedron(){
 	stage.add(box);
 }
 
+var backdrop;
+
+function initBackdrop(){
+	var geometry = new THREE.SphereGeometry(50, 32, 32);
+	var material = new THREE.MeshBasicMaterial({color: 0x000000});
+	backdrop = new THREE.Mesh(geometry, material);
+	backdrop.position.z = -100;
+	stage.add(backdrop);
+}
+
 var world;
 
 function initWorld(){
@@ -79,10 +92,36 @@ function initWorld(){
 		geom.faces[i].color.setHex(COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)]);
 	}
 	let material = new THREE.LineBasicMaterial({vertexColors: THREE.FaceColors, linewidth: 0.1});
-	material.wireframe = true;
+	// material.wireframe = true;
 	// material.linewidth = 1;
 	world = new THREE.Mesh(geom, material);
 	stage.add(world);
+}
+
+function initTraces(){
+
+	var trace_num = Math.PI/(314/16);
+	var trace_outer_rad = 200;
+	var trace_inner_rad = 150;
+	for(var i = 0; i < Math.PI*2; i+= trace_num){
+
+		// var geometry = new THREE.Geometry();
+		// geometry.vertices.push(
+		// 	new THREE.Vector3( Math.cos(i)*trace_outer_rad, Math.sin(i)*trace_outer_rad, 0 ),
+		// 	new THREE.Vector3( Math.cos(i)*trace_inner_rad, Math.sin(i)*trace_inner_rad, -100 )
+		// );
+		var mat = new THREE.MeshBasicMaterial({color: 0xffffff});
+		mat.color.setHex(COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)]);
+		var path = new THREE.LineCurve(
+			new THREE.Vector3( Math.cos(i)*trace_outer_rad, Math.sin(i)*trace_outer_rad, 0),
+			new THREE.Vector3( Math.cos(i)*trace_inner_rad, Math.sin(i)*trace_inner_rad, -100)
+		);
+		var geometry = new THREE.TubeGeometry(path, 10, 2, 6, false);
+
+		var trace = new THREE.Mesh(geometry, mat);
+		traces.push(trace);
+		stage.add(trace);
+	}
 }
 
 function initSphere(){
@@ -222,11 +261,17 @@ function animateBackground(){
 	}
 }
 
+function toggleBgWireframe(){
+	for(var i = 0; i < background.length; i++){
+		background[i].material.wireframe = !background[i].material.wireframe;
+	}
+}
+
 var world_is_rotating = true;
 
 function animateWorld(){
 	if(world_is_rotating == true){
-		TweenLite.to(world.rotation, 0.5, {x: 0, y: world.rotation.y + Math.PI, ease: Back.easeInOut});
+		TweenLite.to(world.rotation, 0.5, {x: Math.floor(Math.random()*8)/4*Math.PI, y: Math.floor(Math.random()*8)/4*Math.PI, ease: Power3.easeInOut});
 		world_is_rotating = false;
 		setTimeout(function(){world_is_rotating = true}, 2000);
 	}
@@ -254,6 +299,44 @@ function animateIsocahedron(){
 	}
 
 	geometry.verticesNeedUpdate = true;
+}
+
+
+
+// CONTROLS
+var traces_oscill_speed_x = 0.8;
+var traces_oscill_coeff_x = 0.1;
+var traces_oscill_speed_z = 3.0;
+var traces_oscill_coeff_z= 0.1;
+
+function animateTraces(){
+	for(var i = 0; i < traces.length; i++){
+		var inc_x = Math.sin(i*0.1+clock.getElapsedTime()*traces_oscill_speed_x)*traces_oscill_coeff_x;
+		var inc_y = Math.cos(i*0.1+clock.getElapsedTime()*traces_oscill_speed_z)*traces_oscill_coeff_z;
+
+		traces[i].scale.x += inc_x;
+		traces[i].scale.y += inc_x;
+		traces[i].scale.z += inc_y;
+
+		// THIS IS FOR LINES
+		// traces[i].geometry.vertices[traces[i].geometry.vertices.length-1].x += inc_x;
+		// traces[i].geometry.vertices[traces[i].geometry.vertices.length-1].z += inc_y;
+		// traces[i].geometry.verticesNeedUpdate = true;
+	}
+
+
+}
+
+
+function paintTraces(){
+	var start_index = Math.floor(Math.random()*traces.length-100);
+	var paint_width = Math.floor(Math.random()*100);
+	var color = COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)];
+	for(var i = start_index; i < paint_width; i++){
+		traces[i].material.color.setHex(color);
+	}
+
+	// setTimeout(paintTraces, 1000);
 }
 
 // ===========================
@@ -301,11 +384,13 @@ function onWindowResize(){
 }
 
 var render = function(){
-
 	requestAnimationFrame(render);
-	animateIsocahedron();
+
+	// animateIsocahedron();
 	animateBackground();
 	animateWorld();
+	animateTraces();
+
 	renderer.render(stage, camera);
 };
 

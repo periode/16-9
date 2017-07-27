@@ -36,7 +36,7 @@ io.sockets.on('connection', function(socket){
 		socket.broadcast.emit('bg-flip-toggle', data);
 	});
 
-	socket.on('bg-color-toggle', function(data) {
-		socket.broadcast.emit('bg-color-toggle', data);
+	socket.on('bg-wireframe-toggle', function(data) {
+		socket.broadcast.emit('bg-wireframe-toggle', data);
 	});
 });

@@ -36,6 +36,6 @@ socket.on('bg-flip-toggle', function(value){
 	bg_flip_toggle = value;
 });
 
-socket.on('bg-color-toggle', function(value){
-	bg_color_toggle = value;
+socket.on('bg-wireframe-toggle', function(value){
+	toggleBgWireframe();
 });

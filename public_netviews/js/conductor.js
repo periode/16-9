@@ -30,10 +30,10 @@ function toggleBgFlip(){
 	socket.emit('bg-flip-toggle', bg_flip_toggle);
 }
 
-var bg_color_toggle = false;
+var bg_wireframe_toggle = false;
 
-function toggleBgColor(){
-	bg_color_toggle = !bg_color_toggle;
+function toggleBgWireframe(){
+	bg_wireframe_toggle = !bg_wireframe_toggle;
 
-	socket.emit('bg-color-toggle', bg_color_toggle);
+	socket.emit('bg-wireframe-toggle', bg_wireframe_toggle);
 }

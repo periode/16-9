@@ -12,37 +12,34 @@
 		<div id="left" class="container">
 			<h2 class="show">SHOW 1</h2>
 			<hr />
-			<h3 class="section">INTRO - CIRCLE</h3>
+			<h3 class="section">BACKGROUND</h3>
 			<button>start circle</button>
 			<ul>
 				<li>
 					init circle
 				</li>
 				<li>
-					fader for width of circle: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgScaleY(this.value)" /> 0<br>
+					height: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgScaleY(this.value)" /> 0<br>
 				</li>
 				<li>
-					fader for width of each individual: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgScaleX(this.value)" /> 0<br>
+					width: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgScaleX(this.value)" /> 0<br>
 				</li>
 				<li>
-					fader for variation of Z over sine: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgOscillCoeff(this.value)" /> 1<br>
+					oscill: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgOscillCoeff(this.value)" /> 1<br>
 				</li>
 				<li>
-					fader for rotation on their own X axis or Y axis: target rotation<input id="slide" type="checkbox" value="0" onchange="toggleBgFlip()" /> off<br>
+					flip: <input id="slide" type="checkbox" value="0" onchange="toggleBgFlip()" /> off<br>
 				</li>
 				<li>
-					fader for animating colors n<input id="slide" type="checkbox" value="0" onchange="toggleBgColor()" /> off<br>
-				</li>
-				<li>
-					fading out colors into a darker tone
+					wireframe<input id="slide" type="checkbox" value="0" onchange="toggleBgWireframe()" /> off<br>
 				</li>
 			</ul>
 			<hr />
-			<h3 class="section">SINGLE MESH</h3>
-			<button>start single mesh</button>
+			<h3 class="section">ISOCAHEDRON</h3>
+			<button>start</button>
 			<ul>
 				<li>
-					make mesh appear (starts at massive scale then zoom into?)
+					make mesh appear (starts at small scale then zoom into?)
 				</li>
 				<li>
 					mesh wireframe toggle
@@ -64,8 +61,8 @@
 				</li>
 			</ul>
 			<hr />
-			<h3 class="section">MULTIPLE MESHES</h3>
-			<button>invoke multiple meshes</button>
+			<h3 class="section">WORLD</h3>
+			<button>start</button>
 			<ul>
 				<li>
 					make other geometry appear
@@ -78,8 +75,8 @@
 				</li>
 			</ul>
 			<hr />
-			<h3 class="section">OUTRO SPHERE</h3>
-			<button>start spheres</button>
+			<h3 class="section">TRACES</h3>
+			<button>start</button>
 			<ul>
 				<li>
 					remove shapes
