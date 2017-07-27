@@ -10,6 +10,23 @@ function startAll(){
 	socket.emit('conductor-start');
 }
 
+function toggleWireframe(actor){
+	socket.emit('wireframe-toggle', actor);
+}
+
+function setClearcolor(value){
+	socket.emit('clear-color', value);
+}
+
+function introduce(actor){
+	socket.emit('introduce', actor);
+}
+
+// -------------------------------------- BACKGROUND
+// -------------------------------------- BACKGROUND
+// -------------------------------------- BACKGROUND
+// -------------------------------------- BACKGROUND
+
 function updateBgScaleX(val){
 	socket.emit('bg-scale-x', val);
 }
@@ -30,14 +47,27 @@ function toggleBgFlip(){
 	socket.emit('bg-flip-toggle', bg_flip_toggle);
 }
 
-function toggleWireframe(actor){
-	socket.emit('wireframe-toggle', actor);
+// -------------------------------------- COMET
+// -------------------------------------- COMET
+// -------------------------------------- COMET
+// -------------------------------------- COMET
+
+function updateCometRotation(value){
+	socket.emit('comet-rotation', value);
 }
 
-function setClearcolor(value){
-	socket.emit('clear-color', value);
+function startCometDistort(){
+	socket.emit('comet-distort-start', 1);
 }
 
-function introduce(actor){
-	socket.emit('introduce', actor);
+function updateCometDistortCoeff(value){
+	socket.emit('comet-distort-coeff', value);
+}
+
+function updateCometGravitationCoeff(value){
+	socket.emit('comet-gravitation-coeff', value);
+}
+
+function updateCometGravitationSpeed(value){
+	socket.emit('comet-gravitation-speed', value);
 }

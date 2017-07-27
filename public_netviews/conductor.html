@@ -39,16 +39,19 @@
 					wireframe<input type="checkbox" value="0" onchange="toggleWireframe('comet')" /><br>
 				</li>
 				<li>
-					rotation<input type="checkbox" value="0" onchange="toggleRotation('comet')" /><br>
+					rotation <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateCometRotation(this.value)" /> 1<br>
 				</li>
 				<li>
-					distortion amount <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateCometDistortCoeff(this.value)" /> 1<br>
+					distortion start <button onclick="startCometDistort()"> start distort</button><br>
 				</li>
 				<li>
-					gravitation coeff
+					distortion amount <input id="slide" type="range" min="0" max="20" step="0.01" value="0.5" onchange="updateCometDistortCoeff(this.value)" /> 0.5<br>
 				</li>
 				<li>
-					gravitation speed
+					gravitation coeff <input id="slide" type="range" min="0" max="50" step="0.01" value="0" onchange="updateCometGravitationCoeff(this.value)" /> 1<br>
+				</li>
+				<li>
+					gravitation speed <input id="slide" type="range" min="0" max="2" step="0.001" value="0" onchange="updateCometGravitationSpeed(this.value)" /> 1<br>
 				</li>
 			</ul>
 			<hr />

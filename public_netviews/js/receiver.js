@@ -54,6 +54,10 @@ socket.on('wireframe-toggle', function(value){
 	}
 });
 
+// -------------------------------------- BACKGROUND
+// -------------------------------------- BACKGROUND
+// -------------------------------------- BACKGROUND
+// -------------------------------------- BACKGROUND
 //lfo is intensity of everything
 //bg_scale_x 0-2
 //bg_scale_y 0-2
@@ -76,6 +80,32 @@ socket.on('bg-oscill-coeff', function(value){
 socket.on('bg-flip-toggle', function(value){
 	bg_flip_toggle = value;
 });
+
+// -------------------------------------- COMET
+// -------------------------------------- COMET
+// -------------------------------------- COMET
+// -------------------------------------- COMET
+
+socket.on('comet-rotation', function(value){
+	comet_rotation_coeff = value;
+});
+
+socket.on('comet-distort-start', function(value){
+	tweenComet();
+});
+
+socket.on('comet-distort-coeff', function(value){
+	comet_distort_coeff = value;
+});
+
+socket.on('comet-gravitation-coeff', function(value){
+	comet_gravitation_coeff = value;
+});
+
+socket.on('comet-gravitation-speed', function(value){
+	comet_gravitation_speed = value;
+});
+
 
 
 
