@@ -99,4 +99,17 @@ io.sockets.on('connection', function(socket){
 	// -------------------------------------- TRACES
 	// -------------------------------------- TRACES
 	// -------------------------------------- TRACES
+
+	socket.on('traces-depth', function(data){
+		socket.broadcast.emit('traces-depth', data);
+	});
+
+	socket.on('traces-step', function(data){
+		socket.broadcast.emit('traces-step', data);
+	});
+
+
+	socket.on('traces-oscill', function(data){
+		socket.broadcast.emit('traces-oscill', data);
+	});
 });

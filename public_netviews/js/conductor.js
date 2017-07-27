@@ -93,3 +93,15 @@ function switchWorldGeometry(value){
 // -------------------------------------- TRACES
 // -------------------------------------- TRACES
 // -------------------------------------- TRACES
+
+function updateTracesOscill(_axis, _type, _value){
+	socket.emit('traces-oscill', {axis: _axis, type: _type, value:_value});
+}
+
+function updateTracesDepth(value){
+	socket.emit('traces-depth', value);
+}
+
+function updateTracesStep(value){
+	socket.emit('traces-step', value);
+}

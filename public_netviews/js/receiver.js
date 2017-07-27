@@ -148,6 +148,28 @@ socket.on('world-geometry', function(data){
 // -------------------------------------- TRACES
 // -------------------------------------- TRACES
 
+socket.on('traces-depth', function(data){
+	traces_depth_coeff = data;
+});
+
+socket.on('traces-step', function(data){
+	traces_oscill_step = data;
+});
+
+socket.on('traces-oscill', function(data){
+	if(data.axis == 'x'){
+		if(data.type == 'coeff')
+			traces_oscill_coeff_x = data.value;
+		else
+			traces_oscill_speed_x = data.value;
+	}else{
+		if(data.type == 'coeff')
+			traces_oscill_coeff_y = data.value;
+		else
+			traces_oscill_speed_y = data.value;
+	}
+});
+
 
 socket.on('clear-color', function(value){
 	clearColor(value);

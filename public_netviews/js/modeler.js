@@ -164,7 +164,7 @@ function toggleWorldWireframe(){
 
 function initTraces(){
 
-	var trace_num = Math.PI/(314/16);
+	var trace_num = Math.PI/(314/8);
 	var trace_outer_rad = 200;
 	var trace_inner_rad = 150;
 	for(var i = 0; i < Math.PI*2; i+= trace_num){
@@ -440,16 +440,20 @@ function getTargetVertices(){
 var traces_oscill_speed_x = 0.8;
 var traces_oscill_coeff_x = 0.1;
 var traces_oscill_speed_z = 3.0;
-var traces_oscill_coeff_z= 0.1;
+var traces_oscill_coeff_z = 0.1;
+var traces_oscill_step = 0.1;
+var traces_depth_coeff = 1;
 
 function animateTraces(){
 	for(var i = 0; i < traces.length; i++){
-		var inc_x = Math.sin(i*0.1+clock.getElapsedTime()*traces_oscill_speed_x)*traces_oscill_coeff_x;
-		var inc_y = Math.cos(i*0.1+clock.getElapsedTime()*traces_oscill_speed_z)*traces_oscill_coeff_z;
+		var inc_x = Math.sin(i*traces_oscill_step+clock.getElapsedTime()*traces_oscill_speed_x)*traces_oscill_coeff_x;
+		var inc_y = Math.cos(i*traces_oscill_step+clock.getElapsedTime()*traces_oscill_speed_z)*traces_oscill_coeff_z;
 
 		traces[i].scale.x += inc_x;
 		traces[i].scale.y += inc_x;
 		traces[i].scale.z += inc_y;
+
+		// traces[i].scale.z *= traces_depth_coeff;
 
 		// THIS IS FOR LINES
 		// traces[i].geometry.vertices[traces[i].geometry.vertices.length-1].x += inc_x;
@@ -471,12 +475,6 @@ function paintTraces(){
 
 	// setTimeout(paintTraces, 1000);
 }
-
-// ===========================
-// =========================== INIT BACKGROUND
-// ===========================
-
-
 
 
 
