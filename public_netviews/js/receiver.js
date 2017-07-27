@@ -13,6 +13,47 @@ socket.on('performer-start', function(){
 	begin();
 });
 
+socket.on('introduce', function(value){
+	switch(value){
+		case 'background':
+			introduceBackground();
+			break;
+		case 'comet':
+			introduceComet();
+			break;
+		case 'world':
+			introduceWorld();
+			break;
+		case 'traces':
+			introduceTraces();
+			break;
+		default:
+			console.log('unexpected value for wireframe toggle');
+			break;
+	}
+});
+
+socket.on('wireframe-toggle', function(value){
+
+	switch(value){
+		case 'background':
+			toggleBgWireframe();
+			break;
+		case 'comet':
+			toggleCometWireframe();
+			break;
+		case 'world':
+			toggleWorldWireframe();
+			break;
+		case 'traces':
+			toggleTracesWireframe();
+			break;
+		default:
+			console.log('unexpected value for wireframe toggle');
+			break;
+	}
+});
+
 //lfo is intensity of everything
 //bg_scale_x 0-2
 //bg_scale_y 0-2
@@ -36,9 +77,7 @@ socket.on('bg-flip-toggle', function(value){
 	bg_flip_toggle = value;
 });
 
-socket.on('bg-wireframe-toggle', function(value){
-	toggleBgWireframe();
-});
+
 
 socket.on('clear-color', function(value){
 	clearColor(value);

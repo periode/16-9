@@ -4,7 +4,7 @@
 var stage, camera, renderer, controls, clock;
 
 var background = [];
-var box;
+var comet;
 var geometry;
 
 var traces = [];
@@ -15,7 +15,7 @@ var sun, point, ambient;
 function begin(){
 	// document.getElementsByTagName('iframe')[0].style.visibility = "hidden";
 	stage = new THREE.Scene();
-	stage.background = new THREE.Color('white');
+	stage.background = new THREE.Color('black');
 
 	camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1600);
 	camera.position.z = 100;
@@ -53,8 +53,8 @@ function getOriginalVertices(){
 function initGeometry(){
 
 	//---------------------------- SHOW 1
-	// initBackground();
- // 	initIsocahedron();
+	initBackground();
+ 	initComet();
 	initWorld();
 	initTraces();
 
@@ -63,7 +63,39 @@ function initGeometry(){
 	// initSphere();
 }
 
-function initIsocahedron(){
+var background_radius = 60;
+
+function initBackground(){
+
+	for(var z = 0; z < Math.PI*2; z += 0.1){ //make a circle
+			var geom = new THREE.PlaneGeometry(5, 10);
+
+			var mat = new THREE.MeshBasicMaterial();
+			// mat.wireframe = true;
+			mat.color.setHex(COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)]);
+			var mesh = new THREE.Mesh(geom, mat);
+			mesh.wireframe = true;
+			mesh.position.y = Math.cos(z) * background_radius;
+			mesh.position.x = Math.sin(z) * background_radius;
+
+			mesh.lookAt(new THREE.Vector3(0, 0, 0));
+			background.push(mesh);
+	}
+}
+
+function introduceBackground(){
+	for(var i = 0; i < background.length; i++){
+		stage.add(background[i]);
+	}
+}
+
+function toggleBackground(){
+	for(var i = 0; i < background.length; i++){
+		background[i].material.visible = !background[i].material.visible;
+	}
+}
+
+function initComet(){
 	geometry = new THREE.IcosahedronGeometry(10);
 
 	for(var i = 0; i < geometry.faces.length; i++){
@@ -71,13 +103,23 @@ function initIsocahedron(){
 	}
 
 	var mat = new THREE.MeshBasicMaterial({vertexColors: THREE.FaceColors});
-	box = new THREE.Mesh(geometry, mat);
-	box.rotation.y += 0.25;
-	stage.add(box);
+	comet = new THREE.Mesh(geometry, mat);
+	comet.scale.x = 0.1;
+	comet.scale.y = 0.1;
+	comet.scale.z = 0.1;
+
+}
+
+function introduceComet(){
+	stage.add(comet);
+	TweenLite.to(comet.scale, 6, {x:1, y:1, z:1, ease: Power2.easeOut});
+}
+
+function toggleCometWireframe(){
+	comet.wireframe = !comet.wireframe;
 }
 
 var spheredrop;
-
 function initSpheredrop(){
 	var geometry = new THREE.SphereGeometry(50, 32, 32);
 	var material = new THREE.MeshBasicMaterial({color: 0x000000});
@@ -87,17 +129,27 @@ function initSpheredrop(){
 }
 
 var world;
-
 function initWorld(){
 	let geom = new THREE.OctahedronGeometry(15);
 	for(var i = 0; i < geom.faces.length; i++){
 		geom.faces[i].color.setHex(COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)]);
 	}
 	let material = new THREE.LineBasicMaterial({vertexColors: THREE.FaceColors, linewidth: 0.1});
-	// material.wireframe = true;
-	// material.linewidth = 1;
+	material.wireframe = true;
 	world = new THREE.Mesh(geom, material);
+	world.scale.x = 0.01;
+	world.scale.y = 0.01;
+	world.scale.z = 0.01;
 	stage.add(world);
+}
+
+function introduceWorld(){
+	stage.add(world);
+	TweenLite.to(world.scale, 4, {x:1, y:1, z:1, ease: Power2.easeOut});
+}
+
+function toggleWorldWireframe(){
+	world.wireframe = !world.wireframe;
 }
 
 function initTraces(){
@@ -122,7 +174,12 @@ function initTraces(){
 
 		var trace = new THREE.Mesh(geometry, mat);
 		traces.push(trace);
-		stage.add(trace);
+	}
+}
+
+function introduceTraces(){
+	for(var i = 0; i < traces.length; i++){
+		stage.add(traces[i]);
 	}
 }
 
@@ -246,8 +303,8 @@ function getTargetVertices(){
 	return tv;
 }
 
-var bg_scale_x = 0;
-var bg_scale_y = 0;
+var bg_scale_x = 0.01;
+var bg_scale_y = 0.01;
 var bg_oscillation_coeff = 1;
 var bg_flip_toggle = false;
 var bg_color_toggle = false;
@@ -287,22 +344,22 @@ function animateWorld(){
 	}
 }
 
-var iso_rotation_coeff = 1;
-var iso_gravitation_coeff = 40;
-var iso_gravitation_speed = 2;
+var comet_rotation_coeff = 0;
+var comet_gravitation_coeff = 0;
+var comet_gravitation_speed = 0;
 
-function animateIsocahedron(){
-	box.rotation.x += 0.025 * iso_rotation_coeff;
-	box.rotation.y += 0.01 * iso_rotation_coeff;
+function animateComet(){
+	comet.rotation.x += 0.025 * comet_rotation_coeff;
+	comet.rotation.y += 0.01 * comet_rotation_coeff;
 
-	if(iso_gravitation_coeff > 0){
+	if(comet_gravitation_coeff > 0){
 		for(var u = 0; u < 1; u += 0.01){
 			for(var v = 0; v < 1; v += 0.01){
-				var theta = 2 * Math.PI * u + clock.getElapsedTime() * iso_gravitation_speed;
-				var phi = Math.PI * v + clock.getElapsedTime() * iso_gravitation_speed;
-				box.position.x = Math.sin(theta) * Math.cos(phi) * iso_gravitation_coeff;
-				box.position.y = Math.sin(phi) * iso_gravitation_coeff;
-				box.position.z = Math.cos(phi) * Math.cos(theta) * iso_gravitation_coeff;
+				var theta = 2 * Math.PI * u + clock.getElapsedTime() * comet_gravitation_speed;
+				var phi = Math.PI * v + clock.getElapsedTime() * comet_gravitation_speed;
+				comet.position.x = Math.sin(theta) * Math.cos(phi) * comet_gravitation_coeff;
+				comet.position.y = Math.sin(phi) * comet_gravitation_coeff;
+				comet.position.z = Math.cos(phi) * Math.cos(theta) * comet_gravitation_coeff;
 			}
 		}
 
@@ -353,26 +410,7 @@ function paintTraces(){
 // =========================== INIT BACKGROUND
 // ===========================
 
-var background_radius = 60;
 
-function initBackground(){
-
-	for(var z = 0; z < Math.PI*2; z += 0.1){ //make a circle
-			var geom = new THREE.PlaneGeometry(5, 10);
-
-			var mat = new THREE.MeshBasicMaterial();
-			// mat.wireframe = true;
-			mat.color.setHex(COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)]);
-			var mesh = new THREE.Mesh(geom, mat);
-			mesh.wireframe = true;
-			mesh.position.y = Math.cos(z) * background_radius;
-			mesh.position.x = Math.sin(z) * background_radius;
-
-			mesh.lookAt(new THREE.Vector3(0, 0, 0));
-			background.push(mesh);
-			stage.add(mesh);
-	}
-}
 
 var backdrop;
 
@@ -408,9 +446,9 @@ function onWindowResize(){
 var render = function(){
 	requestAnimationFrame(render);
 
-	// animateIsocahedron();
+	animateComet();
 	animateBackground();
-	animateWorld();
+	// animateWorld();
 	animateTraces();
 
 	renderer.render(stage, camera);

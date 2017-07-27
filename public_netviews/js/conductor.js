@@ -30,15 +30,14 @@ function toggleBgFlip(){
 	socket.emit('bg-flip-toggle', bg_flip_toggle);
 }
 
-var bg_wireframe_toggle = false;
-
-function toggleBgWireframe(){
-	bg_wireframe_toggle = !bg_wireframe_toggle;
-
-	socket.emit('bg-wireframe-toggle', bg_wireframe_toggle);
+function toggleWireframe(actor){
+	socket.emit('wireframe-toggle', actor);
 }
-
 
 function setClearcolor(value){
 	socket.emit('clear-color', value);
+}
+
+function introduce(actor){
+	socket.emit('introduce', actor);
 }

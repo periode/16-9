@@ -13,11 +13,8 @@
 			<h2 class="show">SHOW 1</h2>
 			<hr />
 			<h3 class="section">BACKGROUND</h3>
-			<button>start circle</button>
+			<button onclick="introduce('background')">start</button>
 			<ul>
-				<li>
-					init circle
-				</li>
 				<li>
 					height: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgScaleY(this.value)" /> 0<br>
 				</li>
@@ -28,47 +25,44 @@
 					oscill: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgOscillCoeff(this.value)" /> 1<br>
 				</li>
 				<li>
-					flip: <input id="slide" type="checkbox" value="0" onchange="toggleBgFlip()" /> off<br>
+					flip: <input type="checkbox" value="0" onchange="toggleBgFlip()" /><br>
 				</li>
 				<li>
-					wireframe<input id="slide" type="checkbox" value="0" onchange="toggleBgWireframe()" /> off<br>
+					wireframe<input type="checkbox" value="0" onchange="toggleWireframe('background')" /><br>
 				</li>
 			</ul>
 			<hr />
-			<h3 class="section">ISOCAHEDRON</h3>
-			<button>start</button>
+			<h3 class="section">COMET</h3>
+			<button onclick="introduce('comet')">start</button>
 			<ul>
 				<li>
-					make mesh appear (starts at small scale then zoom into?)
+					wireframe<input type="checkbox" value="0" onchange="toggleWireframe('comet')" /><br>
 				</li>
 				<li>
-					mesh wireframe toggle
+					rotation<input type="checkbox" value="0" onchange="toggleRotation('comet')" /><br>
 				</li>
 				<li>
-					make mesh rotate
+					distortion amount <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateCometDistortCoeff(this.value)" /> 1<br>
 				</li>
 				<li>
-					make mesh distort
+					gravitation coeff
 				</li>
 				<li>
-					make mesh rotate around a center
-				</li>
-				<li>
-					system to change the nature of the mesh? do that every x amount of time
-				</li>
-				<li>
-					system to load other geometry
+					gravitation speed
 				</li>
 			</ul>
 			<hr />
 			<h3 class="section">WORLD</h3>
-			<button>start</button>
+			<button onclick="introduce('world')">start</button>
 			<ul>
 				<li>
-					make other geometry appear
+					wireframe<input type="checkbox" value="0" onchange="toggleWireframe('world')" /> off<br>
 				</li>
 				<li>
-					first on flat plane then on 3D plane
+					transform into other geometry?
+				</li>
+				<li>
+					start rotations X Y Z
 				</li>
 				<li>
 					reconsider if i really need all these added shapes
@@ -76,7 +70,7 @@
 			</ul>
 			<hr />
 			<h3 class="section">TRACES</h3>
-			<button>start</button>
+			<button onclick="introduce('traces')">start</button>
 			<ul>
 				<li>
 					remove shapes
