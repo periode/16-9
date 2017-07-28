@@ -11,6 +11,10 @@ function startAll(){
 	socket.emit('conductor-start');
 }
 
+function setShow(index){
+	socket.emit('set-show', index);
+}
+
 function toggleWireframe(actor){
 	socket.emit('wireframe-toggle', actor);
 }

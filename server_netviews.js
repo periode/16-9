@@ -12,12 +12,28 @@ var server = http.createServer(app).listen(port, function(error){
 
 app.use(express.static('public_netviews'));
 
+// ---------------------- STATE
+var STATE = {
+  show: 0
+};
+
 var io = require('socket.io').listen(server);
 
 io.sockets.on('connection', function(socket){
+
+	//load all state things
+	socket.emit('audience-connect', STATE);
+
 	socket.on('conductor-start', function(data) {
 		console.log('received start from the conductor');
 		socket.broadcast.emit('performer-start', data);
+
+		//maybe some reset states?
+	});
+
+	socket.on('set-show', function(data){
+		STATE.show = data;
+		socket.broadcast.emit('set-show', data);
 	});
 
 	socket.on('wireframe-toggle', function(data) {

@@ -8,10 +8,13 @@ socket.on('connect', function(){
 
 });
 
-socket.on('performer-start', function(){
-	IS_PLAYING = true;
-	console.log('it has begun');
-	begin();
+socket.on('audience-connect', function(state){
+	console.log('newly connected, updating to current state');
+	begin(state.show);
+});
+
+socket.on('set-show', function(index){
+	setShow(index);
 });
 
 socket.on('introduce', function(value){
