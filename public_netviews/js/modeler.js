@@ -51,6 +51,7 @@ function getOriginalVertices(){
 function initGeometry(){
 
 	//---------------------------- SHOW 1
+	initFont();
 	initBackground();
  	initComet();
 	initWorld();
@@ -59,6 +60,73 @@ function initGeometry(){
 
 	//---------------------------- SHOW 2
 	// initSphere();
+}
+
+var text_netviews, text_wosx, text_wuso;
+function initFont(){
+	var loader = new THREE.FontLoader();
+	var font = loader.load('../data/de_valencia_regular.typeface.json', function (font){
+		var geometry = new THREE.TextGeometry('netviews',{
+			font: font,
+			size: 20,
+			height: 4,
+			curveSegments: 12,
+			bevelEnabled: false
+		});
+
+		var material = new THREE.MeshNormalMaterial();
+		text_netviews = new THREE.Mesh(geometry, material);
+		text_netviews.position.x = -60;
+		text_netviews.position.y = 20;
+		stage.add(text_netviews);
+		text_netviews.material.visible = true;
+
+		material = new THREE.MeshNormalMaterial();
+		var geometry = new THREE.TextGeometry('WosX',{
+			font: font,
+			size: 20,
+			height: 4,
+			curveSegments: 12,
+			bevelEnabled: false
+		});
+		text_wosx = new THREE.Mesh(geometry, material);
+		text_wosx.position.x = -35;
+		text_wosx.position.y = -40;
+		stage.add(text_wosx);
+		text_wosx.material.visible = false;
+
+
+		material = new THREE.MeshNormalMaterial();
+		var geometry = new THREE.TextGeometry('w u s o',{
+			font: font,
+			size: 20,
+			height: 4,
+			curveSegments: 12,
+			bevelEnabled: false
+		});
+		text_wuso = new THREE.Mesh(geometry, material);
+		text_wuso.position.x = -50;
+		text_wuso.position.y = -40;
+		stage.add(text_wuso);
+		text_wuso.material.visible = false;
+	});
+}
+
+function toggleText(text){
+	switch(text){
+		case 'netviews':
+			text_netviews.material.visible = !text_netviews.material.visible;
+			break;
+		case 'wosx':
+			text_wosx.material.visible = !text_wosx.material.visible;
+			break;
+		case 'wuso':
+			text_wuso.material.visible = !text_wuso.material.visible;
+			break;
+		default:
+			console.log('unexpected text value for toggle');
+			break;
+	}
 }
 
 var background_radius = 60;

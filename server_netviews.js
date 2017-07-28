@@ -36,6 +36,10 @@ io.sockets.on('connection', function(socket){
 		socket.broadcast.emit('toggle', data);
 	});
 
+	socket.on('toggle-text', function(data){
+		socket.broadcast.emit('toggle-text', data);
+	});
+
 	socket.on('fade-out', function(data){
 		socket.broadcast.emit('fade-out', data);
 	});

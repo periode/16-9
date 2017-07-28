@@ -27,6 +27,10 @@ function toggle(actor){
 	socket.emit('toggle', actor);
 }
 
+function toggleText(actor){
+	socket.emit('toggle-text', actor);
+}
+
 function fadeOut(actor){
 	socket.emit('fade-out', actor);
 }

@@ -94,6 +94,10 @@ socket.on('fade-out', function(value){
 	}
 });
 
+socket.on('toggle-text', function(value){
+	toggleText(value);
+});
+
 // -------------------------------------- BACKGROUND
 // -------------------------------------- BACKGROUND
 // -------------------------------------- BACKGROUND
