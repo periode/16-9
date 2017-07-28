@@ -1,20 +1,37 @@
-var global_time = 0;
-var phi_coeff_target = 0;
-var phi_coeff = 0;
-var theta_coeff_target = 0;
-var theta_coeff = 0;
 
-var explosion_pos_a = [-200, 0, 0];
-var explosion_pos_a_target = [-200, 0, 0];
-var explosion_pos_b = [200, 0, 0];
-var explosion_pos_b_target = [200, 0, 0];
-var explosion_rad = 0;
-var explosion_rad_target = 0;
+// -------------------------------------- SPHERE
+// -------------------------------------- SPHERE
+// -------------------------------------- SPHERE
+// -------------------------------------- SPHERE
 
-var theta = 0
-var phi = 0
-var radius = 150
+var sphere_phi_coeff_target = 0;
+var sphere_phi_coeff = 0;
+var sphere_theta_coeff_target = 0;
+var sphere_theta_coeff = 0;
 
+var sphere_explosion_pos_a = [-200, 0, 0];
+var sphere_explosion_pos_a_target = [-200, 0, 0];
+var sphere_explosion_pos_b = [200, 0, 0];
+var sphere_explosion_pos_b_target = [200, 0, 0];
+var sphere_explosion_rad = 0;
+var sphere_explosion_rad_target = 0;
+
+var sphere_theta = 0
+var sphere_phi = 0
+var sphere_radius = 150
+
+// -------------------------------------- CUBE
+// -------------------------------------- CUBE
+// -------------------------------------- CUBE
+// -------------------------------------- CUBE
+var cube, cubeBackground;
+
+var cube_step = 0;
+var cube_step_thresh = 1;
+var cube_invert = false;
+var cube_offset = 0;
+var cube_offset_thresh = 0;
+var cube_clap = false;
 
 function initShaders(){
   // initSphere();
@@ -26,12 +43,17 @@ function animateShader(){
   animateCube();
 }
 
-
 var fsSphere, vsSphere;
+var fsCubeBackground, vsCubeBackground;
+var fsCube, vsCube;
 
 function loadAllShaders(){
 	loadShader('sphere', 'vs');
 	loadShader('sphere', 'fs');
+  loadShader('cubeBackground', 'vs');
+	loadShader('cubeBackground', 'fs');
+  loadShader('cube', 'vs');
+	loadShader('cube', 'fs');
 }
 
 function loadShader(file, type, variable){
@@ -41,10 +63,23 @@ function loadShader(file, type, variable){
 			dataType: "text",
 			success: function(result) {
 				console.log("succesfully loaded shader file: "+file+"."+type);
-				if(type == 'vs')
-					vsSphere = result;
-				if(type == 'fs')
-					fsSphere = result;
+				if(type == 'vs'){
+          if(file == 'sphere')
+            vsSphere = result;
+          if(file == 'cubeBackground')
+            vsCubeBackground = result;
+          if(file == 'cube')
+            vsCube = result;
+        }
+
+				if(type == 'fs'){
+          if(file == 'sphere')
+            fsSphere = result;
+          if(file == 'cubeBackground')
+            fsCubeBackground = result;
+          if(file == 'cube')
+            fsCube = result;
+        }
 			},
 			fail: function(){
 				console.log("unable to load shader file: "+file+"."+type);
@@ -54,11 +89,68 @@ function loadShader(file, type, variable){
 }
 
 function initCube(){
+  var cubeGeometry = new THREE.BoxGeometry(100,100,100);
+  var cubeMaterial = new THREE.RawShaderMaterial( {
+    uniforms: {
+      uColor: { type: "c", value: new THREE.Color( 0x00ff00 ) },
+      uTime: { value: 0},
+      uStep: { type: 'f', value: 0},
+      uInvert: {value: false}
+    },
+    vertexShader: vsCube,
+    fragmentShader: fsCube
+  } );
 
+  var backgroundCubeGeometry = new THREE.PlaneGeometry(1200, 800, 1)
+  var backgroundCubeMat = new THREE.RawShaderMaterial( {
+    uniforms: {
+      uColor: { type: "c", value: new THREE.Color( 0x00ff00 ) },
+      uTime: { value: 0},
+      uStep: { type: 'f', value: 0},
+      uInvert: {value: false},
+      uOffset: {value: 0},
+      uClap: {value: false}
+    },
+    vertexShader: vsCubeBackground,
+    fragmentShader: fsCubeBackground
+  } );
+
+  cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+  cube.position.z = -120;
+  cubeBackground = new THREE.Mesh(backgroundCubeGeometry, backgroundCubeMat);
+  cubeBackground.position.z = -250;
+  cubeBackground.lookAt(new THREE.Vector3(0, 0, 0));
+
+  stage.add(cube);
+  stage.add(cubeBackground);
+
+  cube_theta = 0
+  cube_phi = 0
 }
 
 function animateCube(){
+  cube.rotation.z += 0.00005
+  cube.rotation.y += 0.02
 
+  // console.log(time);
+  cubeBackground.material.uniforms.uTime.value = clock.getElapsedTime();
+  cube.material.uniforms.uTime.value = clock.getElapsedTime();
+
+  cube_step += (cube_step_thresh - cube_step) * .1
+  cubeBackground.material.uniforms.uStep.value = cube_step;
+  cube.material.uniforms.uStep.value = cube_step;
+
+  // offset = (offset_thresh - offset) * .01
+  cubeBackground.material.uniforms.uOffset.value = cube_offset_thresh;
+
+  cube_theta += .01
+  cube_phi += .05
+}
+
+function invertCube(){
+  cube_invert = !cube_invert;
+  cubeBackground.material.uniforms.uInvert.value = cube_invert;
+  cube.material.uniforms.uInvert.value = cube_invert;
 }
 
 var frictions = [];
@@ -146,39 +238,38 @@ function initSphere(){
 }
 
 function animateSphere(){
-  theta += .01
-  phi += .05
+  sphere_theta += .01
+  sphere_phi += .05
 
-  global_time += 0.01
-  // console.log(global_time);
-  sphere.material.uniforms.uTime.value = global_time;
+  // console.log();
+  sphere.material.uniforms.uTime.value = clock.getElapsedTime();
 
-  var move_coeff = 0.1
-  phi_coeff += (phi_coeff_target - phi_coeff) * move_coeff
-  theta_coeff += (theta_coeff_target - theta_coeff) * move_coeff
+  var sphere_move_coeff = 0.1
+  sphere_phi_coeff += (sphere_phi_coeff_target - sphere_phi_coeff) * sphere_move_coeff
+  sphere_theta_coeff += (sphere_theta_coeff_target - sphere_theta_coeff) * sphere_move_coeff
 
   var t = sphere.geometry.attributes.aTheta.array;
   var p = sphere.geometry.attributes.aPhi.array;
   for(let i = 0; i < t.length; i++){
-    t[i] += (phi_coeff_target - t[i]) * frictions[ i ]
-    p[i] += (theta_coeff_target - p[i]) * frictions[ i ]
+    t[i] += (sphere_phi_coeff_target - t[i]) * frictions[ i ]
+    p[i] += (sphere_theta_coeff_target - p[i]) * frictions[ i ]
   }
 
 
   //explosion
-  explosion_rad += (explosion_rad_target - explosion_rad) * .3
-  sphere.material.uniforms.uExplosionRadius.value = explosion_rad
+  sphere_explosion_rad += (sphere_explosion_rad_target - sphere_explosion_rad) * .3
+  sphere.material.uniforms.uExplosionRadius.value = sphere_explosion_rad
 
 
-  explosion_pos_a[0] += (explosion_pos_a_target[0] - explosion_pos_a[0]) * .1
-  explosion_pos_a[1] += (explosion_pos_a_target[1] - explosion_pos_a[1]) * .1
-  explosion_pos_a[2] += (explosion_pos_a_target[2] - explosion_pos_a[2]) * .1
-  sphere.material.uniforms.uExplosionPositionA.value = new THREE.Vector3(explosion_pos_a[0], explosion_pos_a[1], explosion_pos_a[2])
+  sphere_explosion_pos_a[0] += (sphere_explosion_pos_a_target[0] - sphere_explosion_pos_a[0]) * .1
+  sphere_explosion_pos_a[1] += (sphere_explosion_pos_a_target[1] - sphere_explosion_pos_a[1]) * .1
+  sphere_explosion_pos_a[2] += (sphere_explosion_pos_a_target[2] - sphere_explosion_pos_a[2]) * .1
+  sphere.material.uniforms.uExplosionPositionA.value = new THREE.Vector3(sphere_explosion_pos_a[0], sphere_explosion_pos_a[1], sphere_explosion_pos_a[2])
 
-  explosion_pos_b[0] += (explosion_pos_b_target[0] - explosion_pos_b[0]) * .1
-  explosion_pos_b[1] += (explosion_pos_b_target[1] - explosion_pos_b[1]) * .1
-  explosion_pos_b[2] += (explosion_pos_b_target[2] - explosion_pos_b[2]) * .1
-  sphere.material.uniforms.uExplosionPositionB.value = new THREE.Vector3(explosion_pos_b[0], explosion_pos_b[1], explosion_pos_b[2])
+  sphere_explosion_pos_b[0] += (sphere_explosion_pos_b_target[0] - sphere_explosion_pos_b[0]) * .1
+  sphere_explosion_pos_b[1] += (sphere_explosion_pos_b_target[1] - sphere_explosion_pos_b[1]) * .1
+  sphere_explosion_pos_b[2] += (sphere_explosion_pos_b_target[2] - sphere_explosion_pos_b[2]) * .1
+  sphere.material.uniforms.uExplosionPositionB.value = new THREE.Vector3(sphere_explosion_pos_b[0], sphere_explosion_pos_b[1], sphere_explosion_pos_b[2])
 
   sphere.geometry.attributes.aTheta.needsUpdate = true;
   sphere.geometry.attributes.aPhi.needsUpdate = true;
@@ -187,24 +278,24 @@ function animateSphere(){
 window.addEventListener('keypress', (event) => {
   if(event.key == 'm'){
     let coeff = .1
-    phi_coeff_target += (Math.floor(Math.random()*5)*0.5)*coeff;
-    theta_coeff_target += ((Math.floor(Math.random()*4)+1)*2)*coeff;
+    sphere_phi_coeff_target += (Math.floor(Math.random()*5)*0.5)*coeff;
+    sphere_theta_coeff_target += ((Math.floor(Math.random()*4)+1)*2)*coeff;
   }
 
   if(event.key == 'n'){
     let coeff = .1
-    phi_coeff_target -= (Math.floor(Math.random()*5)*0.5)*coeff;
-    theta_coeff_target -= ((Math.floor(Math.random()*4)+1)*2)*coeff;
+    sphere_phi_coeff_target -= (Math.floor(Math.random()*5)*0.5)*coeff;
+    sphere_theta_coeff_target -= ((Math.floor(Math.random()*4)+1)*2)*coeff;
   }
 
   if(event.key == 'w'){
-    explosion_rad_target -= (Math.floor(Math.random()*4)+3)*10
+    sphere_explosion_rad_target -= (Math.floor(Math.random()*4)+3)*10
   }
   if(event.key == 'e'){
-    explosion_rad_target = (Math.floor(Math.random()*4)+3)*50
+    sphere_explosion_rad_target = (Math.floor(Math.random()*4)+3)*50
   }
   if(event.key == 'r'){
-    explosion_rad_target += (Math.floor(Math.random()*4)+3)*10
+    sphere_explosion_rad_target += (Math.floor(Math.random()*4)+3)*10
   }
 
   if(event.key == 'p'){
@@ -212,9 +303,9 @@ window.addEventListener('keypress', (event) => {
     let theta = 2 * Math.random()*Math.PI;
     let phi = Math.random()*Math.PI - Math.random()*Math.PI * 1;
     let rad = 175;
-    explosion_pos_a_target[0] = Math.sin(theta) + Math.cos(phi) * rad;
-    explosion_pos_a_target[1] = Math.sin(phi) * rad;
-    explosion_pos_a_target[2] = Math.cos(phi) + Math.cos(theta) * rad;
+    sphere_explosion_pos_a_target[0] = Math.sin(theta) + Math.cos(phi) * rad;
+    sphere_explosion_pos_a_target[1] = Math.sin(phi) * rad;
+    sphere_explosion_pos_a_target[2] = Math.cos(phi) + Math.cos(theta) * rad;
   }
 
   if(event.key == 'o'){
@@ -222,9 +313,9 @@ window.addEventListener('keypress', (event) => {
     let theta = 2 * Math.random()*Math.PI;
     let phi = Math.random()*Math.PI - Math.random()*Math.PI * 1;
     let rad = 175;
-    explosion_pos_b_target[0] = Math.sin(theta) + Math.cos(phi) * rad;
-    explosion_pos_b_target[1] = Math.sin(phi) * rad;
-    explosion_pos_b_target[2] = Math.cos(phi) + Math.cos(theta) * rad;
+    sphere_explosion_pos_b_target[0] = Math.sin(theta) + Math.cos(phi) * rad;
+    sphere_explosion_pos_b_target[1] = Math.sin(phi) * rad;
+    sphere_explosion_pos_b_target[2] = Math.cos(phi) + Math.cos(theta) * rad;
   }
 
   if(event.key == 1){

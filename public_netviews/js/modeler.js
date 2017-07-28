@@ -1,6 +1,3 @@
-// import vsBuffer from "shaders/buffer.vs"
-// import fsBuffer from "shaders/buffer.fs"
-
 var stage, camera, renderer, controls, clock, show;
 
 var background = [];
@@ -555,8 +552,3 @@ var render = function(){
 
 	renderer.render(stage, camera);
 };
-
-
-document.addEventListener('click', function(){
-	begin(0);
-})
