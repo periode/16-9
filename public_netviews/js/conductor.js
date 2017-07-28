@@ -26,6 +26,14 @@ function toggle(actor){
 	socket.emit('toggle', actor);
 }
 
+function fadeOut(actor){
+	socket.emit('fade-out', actor);
+}
+
+function fadeIn(actor){
+	socket.emit('fade-in', actor);
+}
+
 // -------------------------------------- BACKGROUND
 // -------------------------------------- BACKGROUND
 // -------------------------------------- BACKGROUND
@@ -87,6 +95,10 @@ function updateWorldRotation(_axis, _value){
 
 function switchWorldGeometry(value){
 	socket.emit('world-geometry', value);
+}
+
+function toggleSpheredrop(){
+	socket.emit('toggle-spheredrop', 1);
 }
 
 // -------------------------------------- TRACES

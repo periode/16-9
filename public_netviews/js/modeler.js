@@ -127,26 +127,33 @@ function toggleCometWireframe(){
 	comet.material.wireframe = !comet.material.wireframe;
 }
 
-function initSpheredrop(){
-	var geometry = new THREE.SphereGeometry(50, 32, 32);
-	var material = new THREE.MeshBasicMaterial({color: 0x000000});
-	spheredrop = new THREE.Mesh(geometry, material);
-	spheredrop.position.z = -100;
-	stage.add(spheredrop);
-}
-
 function initWorld(){
 	let geom = new THREE.OctahedronGeometry(15);
 	for(var i = 0; i < geom.faces.length; i++){
 		geom.faces[i].color.setHex(COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)]);
 	}
-	let material = new THREE.LineBasicMaterial({vertexColors: THREE.FaceColors});
+	let material = new THREE.MeshBasicMaterial({vertexColors: THREE.FaceColors});
 	material.wireframe = true;
 	world = new THREE.Mesh(geom, material);
 	world.scale.x = 0.01;
 	world.scale.y = 0.01;
 	world.scale.z = 0.01;
 	stage.add(world);
+
+	initSpheredrop();
+}
+
+function initSpheredrop(){
+	var geometry = new THREE.SphereGeometry(50, 32, 32);
+	var material = new THREE.MeshBasicMaterial({color: 0x000000});
+	spheredrop = new THREE.Mesh(geometry, material);
+	spheredrop.position.z = -100;
+	spheredrop.material.visible = false;
+	stage.add(spheredrop);
+}
+
+function toggleSpheredrop(){
+	spheredrop.material.visible = !spheredrop.material.visible;
 }
 
 function introduceWorld(){
@@ -194,6 +201,15 @@ function introduceTraces(){
 		stage.add(traces[i]);
 		var pos = {x: 0.0, y:0.0};
 		TweenLite.to(pos, 3, {x: 1.0, y: 1.0, ease: Power3.easeIn, onUpdateParams: [pos, i], onUpdate: function(pos, i){
+			traces[i].material.opacity = pos.x;
+		}});
+	}
+}
+
+function fadeOutTraces(){
+	for(var i = 0; i < traces.length; i++){
+		var pos = {x: 1.0, y:0.0};
+		TweenLite.to(pos, 3, {x: 0.0, y: 0.0, ease: Power3.easeIn, onUpdateParams: [pos, i], onUpdate: function(pos, i){
 			traces[i].material.opacity = pos.x;
 		}});
 	}
@@ -466,8 +482,6 @@ function animateTraces(){
 		// traces[i].geometry.vertices[traces[i].geometry.vertices.length-1].z += inc_y;
 		// traces[i].geometry.verticesNeedUpdate = true;
 	}
-
-
 }
 
 

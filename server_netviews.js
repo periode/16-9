@@ -36,6 +36,14 @@ io.sockets.on('connection', function(socket){
 		socket.broadcast.emit('toggle', data);
 	});
 
+	socket.on('fade-out', function(data){
+		socket.broadcast.emit('fade-out', data);
+	});
+
+	socket.on('fade-in', function(data){
+		socket.broadcast.emit('fade-in', data);
+	});
+
 	// -------------------------------------- BACKGROUND
 	// -------------------------------------- BACKGROUND
 	// -------------------------------------- BACKGROUND
@@ -93,6 +101,10 @@ io.sockets.on('connection', function(socket){
 
 	socket.on('world-geometry', function(data){
 		socket.broadcast.emit('world-geometry', data);
+	});
+
+	socket.on('toggle-spheredrop', function(data){
+		socket.broadcast.emit('toggle-spheredrop', data);
 	});
 
 	// -------------------------------------- TRACES

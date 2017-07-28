@@ -28,7 +28,7 @@ socket.on('introduce', function(value){
 			introduceTraces();
 			break;
 		default:
-			console.log('unexpected value for wireframe toggle');
+			console.log('unexpected value for introduction');
 			break;
 	}
 });
@@ -48,7 +48,7 @@ socket.on('toggle', function(value){
 			toggleTraces();
 			break;
 		default:
-			console.log('unexpected value for wireframe toggle');
+			console.log('unexpected value for visibility toggle');
 			break;
 	}
 });
@@ -66,6 +66,26 @@ socket.on('wireframe-toggle', function(value){
 			break;
 		case 'traces':
 			toggleTracesWireframe();
+			break;
+		default:
+			console.log('unexpected value for wireframe toggle');
+			break;
+	}
+});
+
+socket.on('fade-out', function(value){
+	switch(value){
+		case 'background':
+			fadeOutBackground();
+			break;
+		case 'comet':
+			fadeOutComet();
+			break;
+		case 'world':
+			fadeOutWorld();
+			break;
+		case 'traces':
+			fadeOutTraces();
 			break;
 		default:
 			console.log('unexpected value for wireframe toggle');
@@ -142,6 +162,10 @@ socket.on('world-rotation', function(data){
 socket.on('world-geometry', function(data){
 	switchWorldGeometry();
 });
+
+socket.on('toggle-spheredrop', function(data){
+	toggleSpheredrop();
+})
 
 // -------------------------------------- TRACES
 // -------------------------------------- TRACES
