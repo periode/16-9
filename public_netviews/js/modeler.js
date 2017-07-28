@@ -176,6 +176,8 @@ function initTraces(){
 		// );
 		var mat = new THREE.MeshBasicMaterial({color: 0xffffff});
 		mat.color.setHex(COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)]);
+		mat.transparent = true;
+		mat.opacity = 0.0;
 		var path = new THREE.LineCurve(
 			new THREE.Vector3( Math.cos(i)*trace_outer_rad, Math.sin(i)*trace_outer_rad, 0),
 			new THREE.Vector3( Math.cos(i)*trace_inner_rad, Math.sin(i)*trace_inner_rad, -100)
@@ -190,6 +192,10 @@ function initTraces(){
 function introduceTraces(){
 	for(var i = 0; i < traces.length; i++){
 		stage.add(traces[i]);
+		var pos = {x: 0.0, y:0.0};
+		TweenLite.to(pos, 3, {x: 1.0, y: 1.0, ease: Power3.easeIn, onUpdateParams: [pos, i], onUpdate: function(pos, i){
+			traces[i].material.opacity = pos.x;
+		}});
 	}
 }
 
