@@ -10,7 +10,8 @@ socket.on('connect', function(){
 
 socket.on('audience-connect', function(state){
 	console.log('newly connected, updating to current state');
-	begin(state.show);
+	// begin(state.show);
+	begin(1);
 });
 
 socket.on('set-show', function(index){
