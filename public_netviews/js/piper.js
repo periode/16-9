@@ -17,12 +17,12 @@ var radius = 150
 
 
 function initShaders(){
-  initSphere();
+  // initSphere();
   initCube();
 }
 
 function animateShader(){
-  animateSphere();
+  // animateSphere();
   animateCube();
 }
 
@@ -54,6 +54,10 @@ function loadShader(file, type, variable){
 }
 
 function initCube(){
+
+}
+
+function animateCube(){
 
 }
 
