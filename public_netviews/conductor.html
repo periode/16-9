@@ -133,19 +133,20 @@
 			<h3 class="section">CUBE</h3>
 			<button onclick="introduce('cube')">start</button>
 			<li>
-				rotation x <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.8" onchange="updateCubeRotation('x', 'rot', this.value)" /> 0<br>
-				rotation y <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.8" onchange="updateCubeRotation('y', 'rot', this.value)" /> 0<br>
-				rotation z <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.8" onchange="updateCubeRotation('z', 'rot', this.value)" /> 0<br>
+				rotation x <input id="slide" type="range" min="0.00001" max="0.1" step="0.00001" value="0.0001" onchange="updateCubeRotation('x', this.value)" /> 0<br>
+				rotation y <input id="slide" type="range" min="0.00001" max="0.1" step="0.00001" value="0.2" onchange="updateCubeRotation('y', this.value)" /> 0<br>
+				rotation z <input id="slide" type="range" min="0.00001" max="0.1" step="0.00001" value="0.001" onchange="updateCubeRotation('z', this.value)" /> 0<br>
+				<button onclick="updateCubeRotation('r', 0)">reset rotation</button>
 			</li>
 			<li>
-				cube clap
+				cube clap <button onclick="toggleCubeClap()">toggle</button>
 			</li>
 			<li>
-				cube invert
+				cube invert <button onclick="invertCube()"> toggle</button>
 			</li>
 			<li>
-				background lines speed 1: <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.8" onchange="updateBackgroundCubeLines('speed1', this.value)" /> 0<br>
-				background lines speed 2: <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.8" onchange="updateBackgroundCubeLines('speed2', this.value)" /> 0<br>
+				background lines speed down: <input id="slide" type="range" min="0.001" max="100" step="0.01" value="0.8" onchange="updateBackgroundCubeLines('down', this.value)" /> 0<br>
+				background lines speed interval: <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.8" onchange="updateBackgroundCubeLines('interval', this.value)" /> 0<br>
 			</li>
 			<hr />
 			<h3 class="section">SPHERE</h3>

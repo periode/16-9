@@ -175,4 +175,26 @@ io.sockets.on('connection', function(socket){
 	socket.on('sphere-mode', function(data){
 		socket.broadcast.emit('sphere-mode', data);
 	});
+
+	// -------------------------------------- CUBE
+	// -------------------------------------- CUBE
+	// -------------------------------------- CUBE
+	// -------------------------------------- CUBE
+
+	socket.on('cube-rotation', function(data){
+		socket.broadcast.emit('cube-rotation', data);
+	});
+
+	socket.on('cube-background-lines', function(data){
+		socket.broadcast.emit('cube-background-lines', data);
+	});
+
+	socket.on('cube-clap', function(data){
+		socket.broadcast.emit('cube-clap', data);
+	});
+
+	socket.on('cube-invert', function(data){
+		socket.broadcast.emit('cube-invert', data);
+	});
+
 });

@@ -155,3 +155,24 @@ function changeAngleStep(direction){
 function changeSphereMode(mode){
 	socket.emit('sphere-mode', mode);
 }
+
+// -------------------------------------- CUBE
+// -------------------------------------- CUBE
+// -------------------------------------- CUBE
+// -------------------------------------- CUBE
+
+function updateCubeRotation(axis, value){
+	socket.emit('cube-rotation', {axis: axis, value: value});
+}
+
+function updateBackgroundCubeLines(property, value){
+	socket.emit('cube-background-lines', {property: property, value: value});
+}
+
+function toggleCubeClap(){
+	socket.emit('cube-clap', 1);
+}
+
+function invertCube(){
+	socket.emit('cube-invert', 1);
+}

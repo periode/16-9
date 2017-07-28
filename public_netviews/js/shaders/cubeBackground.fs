@@ -8,6 +8,8 @@ uniform float uStep;
 uniform bool uInvert;
 uniform bool uClap;
 uniform float uOffset;
+uniform float uSpeedDown;
+uniform float uSpeedInterval;
 
 varying vec3 vPos;
 
@@ -35,7 +37,7 @@ void main() {
 
 			float fade = smoothstep(150., 200., dist); //utime sin(uTime*0.07)+1.3)*250.
 
-			col.r = col.g = col.b = fade*mod(vPos.y+uTime*0.1, ((sin(uTime*0.01)+1.3)*250.)) + sin(vPos.x*0.15) > 0.5 ? 0. : 1.;
+			col.r = col.g = col.b = fade*mod(vPos.y+uTime*uSpeedDown, ((sin(uTime*0.0001)+1.3)*250.)) + sin(vPos.x*uSpeedInterval) > 0.5 ? 0. : 1.;
 			// if(fade*mod(vPos.y+uTime*0.05, ((sin(uTime*0.17)+1.3)*250.)) > 0.5){
 			// 	col.r = col.g = col.b = fade*mod(vPos.y+uTime*0.05, ((sin(uTime*0.17)+1.3)*250.)) > 0.15 ? 0. : 1.;
 			// }

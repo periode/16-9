@@ -34,13 +34,13 @@ var cube_offset_thresh = 0;
 var cube_clap = false;
 
 function initShaders(){
-  initSphere();
-  // initCube();
+  // initSphere();
+  initCube();
 }
 
 function animateShader(){
-  animateSphere();
-  // animateCube();
+  // animateSphere();
+  animateCube();
 }
 
 var fsSphere, vsSphere;
@@ -115,7 +115,9 @@ function initCube(){
       uStep: { type: 'f', value: 0},
       uInvert: {value: false},
       uOffset: {value: 0},
-      uClap: {value: false}
+      uClap: {value: false},
+      uSpeedDown: {value: 0},
+      uSpeedInterval: {value: 0}
     },
     vertexShader: vsCubeBackground,
     fragmentShader: fsCubeBackground
@@ -134,11 +136,16 @@ function initCube(){
   cube_phi = 0
 }
 
-function animateCube(){
-  cube.rotation.z += 0.00005
-  cube.rotation.y += 0.02
+var cube_rot_x = 0.00005;
+var cube_rot_y = 0.02;
+var cube_rot_z = 0;
 
-  // console.log(time);
+var cube_rot = new THREE.Vector3(0.00005, 0.02, 0);
+function animateCube(){
+  cube.rotation.x += cube_rot.x;
+  cube.rotation.y += cube_rot.y;
+  cube.rotation.z += cube_rot.z;
+
   cubeBackground.material.uniforms.uTime.value = clock.getElapsedTime();
   cube.material.uniforms.uTime.value = clock.getElapsedTime();
 
@@ -146,11 +153,37 @@ function animateCube(){
   cubeBackground.material.uniforms.uStep.value = cube_step;
   cube.material.uniforms.uStep.value = cube_step;
 
-  // offset = (offset_thresh - offset) * .01
+  cube_offset = (cube_offset_thresh - cube_offset) * .01
   cubeBackground.material.uniforms.uOffset.value = cube_offset_thresh;
 
   cube_theta += .01
   cube_phi += .05
+
+  // console.log('pos',cube.position);
+}
+
+function setCubeRotationSpeed(axis, value){
+  var v = parseFloat(value);
+  if(axis == 'x')
+    cube_rot.x = v;
+  if(axis == 'y')
+    cube_rot.y = v;
+  if(axis == 'z')
+    cube_rot.z = v;
+  if(axis == 'r')
+    cubeResetPosition();
+}
+
+function cubeResetPosition(){
+  TweenLite.to(cube.rotation, 3, {x: 0, y: 0, z: 0, ease:Back.easeInOut});
+  cube_rot = new THREE.Vector3(0, 0, 0);
+}
+
+function setBackgroundCubeLines(property, value){
+  if(property == 'down')
+    cubeBackground.material.uniforms.uSpeedDown.value = value;
+  if(property == 'interval')
+    cubeBackground.material.uniforms.uSpeedInterval.value = value;
 }
 
 function invertCube(){
@@ -158,6 +191,16 @@ function invertCube(){
   cubeBackground.material.uniforms.uInvert.value = cube_invert;
   cube.material.uniforms.uInvert.value = cube_invert;
 }
+
+function toggleCubeClap(){
+  cube_offset_thresh = Math.random()*400+400;
+  cubeBackground.material.uniforms.uClap.value = !cubeBackground.material.uniforms.uClap.value;
+}
+
+// -------------------------------------- SPHERE
+// -------------------------------------- SPHERE
+// -------------------------------------- SPHERE
+// -------------------------------------- SPHERE
 
 var frictions = [];
 function initSphere(){

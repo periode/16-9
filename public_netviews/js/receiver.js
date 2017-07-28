@@ -249,4 +249,25 @@ socket.on('explosion-radius', function(value){
 
 socket.on('sphere-mode', function(mode){
 	changeSphereMode(mode);
+});
+
+// -------------------------------------- CUBE
+// -------------------------------------- CUBE
+// -------------------------------------- CUBE
+// -------------------------------------- CUBE
+
+socket.on('cube-rotation', function(data){
+	setCubeRotationSpeed(data.axis, data.value);
+});
+
+socket.on('cube-background-lines', function(data){
+	setBackgroundCubeLines(data.property, data.value);
+});
+
+socket.on('cube-clap', function(data){
+	toggleCubeClap();
+});
+
+socket.on('cube-invert', function(data){
+	invertCube();
 })
