@@ -10,11 +10,11 @@
 	<body>
 		<h1>16:9 CONDUCTOR</h1>
 		<div id="left" class="container">
-			<h2 class="show">SHOW 1</h2>
+			<h2 class="show">w u s o 命</h2>
 			<hr />
 			<h3 class="section">BACKGROUND</h3>
 			<button onclick="introduce('background')">start</button><br />
-			<input type="checkbox" onchange="toggle('background')">toggle visible</button>
+			<input type="checkbox" onchange="toggle('background')" checked>toggle visible</button>
 			<ul>
 				<li>
 					height: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgScaleY(this.value)" /> 0<br>
@@ -29,13 +29,16 @@
 					flip: <input type="checkbox" value="0" onchange="toggleBgFlip()" /><br>
 				</li>
 				<li>
+					reset flip: <button onclick="resetBackgroundFlip()">reset rotation</button>
+				</li>
+				<li>
 					wireframe<input type="checkbox" value="0" onchange="toggleWireframe('background')" /><br>
 				</li>
 			</ul>
 			<hr />
 			<h3 class="section">COMET</h3>
 			<button onclick="introduce('comet')">start</button><br />
-			<input type="checkbox" onchange="toggle('comet')">toggle visible</button>
+			<input type="checkbox" onchange="toggle('comet')" checked>toggle visible</button>
 			<ul>
 				<li>
 					wireframe<input type="checkbox" value="0" onchange="toggleWireframe('comet')" /><br>
@@ -53,13 +56,17 @@
 					gravitation coeff <input id="slide" type="range" min="0" max="50" step="0.01" value="0" onchange="updateCometGravitationCoeff(this.value)" /> 1<br>
 				</li>
 				<li>
-					gravitation speed <input id="slide" type="range" min="0" max="2" step="0.001" value="0" onchange="updateCometGravitationSpeed(this.value)" /> 1<br>
+					gravitation speed <input id="slide" type="range" min="0" max="3" step="0.001" value="0" onchange="updateCometGravitationSpeed(this.value)" /> 1<br>
+				</li>
+				<li>
+					orbit coeff y <input id="slide" type="range" min="0" max="16" step="0.001" value="1" onchange="updateCometOrbitCoeff('phi', this.value)" /> 1<br>
+					orbit speed y <input id="slide" type="range" min="0" max="4" step="0.001" value="1" onchange="updateCometOrbitCoeff('theta', this.value)" /> 1<br>
 				</li>
 			</ul>
 			<hr />
 			<h3 class="section">WORLD</h3>
 			<button onclick="introduce('world')">start</button><br />
-			<input type="checkbox" onchange="toggle('world')">toggle visible</button>
+			<input type="checkbox" onchange="toggle('world')" checked>toggle visible</button>
 			<ul>
 				<li>
 					wireframe<input type="checkbox" value="0" onchange="toggleWireframe('world')" /> off<br>
@@ -80,7 +87,7 @@
 			<h3 class="section">TRACES</h3>
 			<button onclick="introduce('traces')">start</button>
 			<br />
-			<input type="checkbox" onchange="toggle('traces')">toggle visible</button>
+			<input type="checkbox" onchange="toggle('traces')" checked>toggle visible</button>
 			<ul>
 				<li>
 					step coeff<input id="slide" type="range" min="0.05" max="0.15" step="0.001" value="0.1" onchange="updateTracesStep(this.value)" /> 0<br>

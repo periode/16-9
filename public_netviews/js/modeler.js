@@ -130,11 +130,21 @@ function toggleCometWireframe(){
 function initWorld(){
 	let geom = new THREE.OctahedronGeometry(15);
 	for(var i = 0; i < geom.faces.length; i++){
-		geom.faces[i].color.setHex(COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)]);
+		var c = new THREE.Color('black');
+		c.setHex(COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)]);
+		geom.faces[i].vertexColors[0] = c;
+
+		c.setHex(COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)]);
+		geom.faces[i].vertexColors[1] = c;
+
+		c.setHex(COLORS.hex_values[Math.floor(Math.random()*COLORS.hex_values.length)]);
+		geom.faces[i].vertexColors[2] = c;
 	}
 	let material = new THREE.MeshBasicMaterial({vertexColors: THREE.FaceColors});
-	material.wireframe = true;
+	// material.wireframe = true;
+	// material.color = new THREE.Color('black');
 	world = new THREE.Mesh(geom, material);
+
 	world.scale.x = 0.01;
 	world.scale.y = 0.01;
 	world.scale.z = 0.01;
@@ -324,7 +334,7 @@ function clearColor(value){
 
 var bg_scale_x = 0.01;
 var bg_scale_y = 0.01;
-var bg_oscillation_coeff = 1;
+var bg_oscillation_coeff = 0.01;
 var bg_flip_toggle = false;
 var bg_color_toggle = false;
 var bg_black = false;
@@ -344,6 +354,14 @@ function animateBackground(){
 		if(bg_flip_toggle){
 			TweenLite.to(background[current_flip].rotation, 1, {x: 0, y: background[current_flip].rotation.y + Math.PI, ease: Back.easeInOut});
 		}
+	}
+}
+
+function resetBackgroundFlip(){
+	for(var i = 0; i < background.length; i++){
+		TweenLite.to(background[i].rotation, 1, {x: 0, y:0, ease: Power3.easeIn, onCompleteParams: [i], onComplete: function(index){
+			background[index].lookAt(new THREE.Vector3(0, 0, 0));
+		}});
 	}
 }
 
@@ -404,22 +422,28 @@ function switchWorldGeometry(){
 var comet_rotation_coeff = 0;
 var comet_gravitation_coeff = 0;
 var comet_gravitation_speed = 0;
+var comet_orbit_coeff_phi = 1;
+var comet_orbit_coeff_theta = 2;
 
 function animateComet(){
 	comet.rotation.x += 0.025 * comet_rotation_coeff;
 	comet.rotation.y += 0.01 * comet_rotation_coeff;
 
 	if(comet_gravitation_coeff >= 0){
-		for(var u = 0; u < 1; u += 0.01){
-			for(var v = 0; v < 1; v += 0.01){
-				var theta = 2 * Math.PI * u + clock.getElapsedTime() * comet_gravitation_speed;
-				var phi = Math.PI * v + clock.getElapsedTime() * comet_gravitation_speed;
-				comet.position.x = Math.sin(theta) * Math.cos(phi) * comet_gravitation_coeff;
-				comet.position.y = Math.sin(phi) * comet_gravitation_coeff;
-				comet.position.z = Math.cos(phi) * Math.cos(theta) * comet_gravitation_coeff;
-			}
-		}
+		// for(var u = 0; u < 1; u += 0.0075){
+		// 	for(var v = 0; v < 1; v += 0.01){
+		// 		var theta = comet_orbit_coeff_theta * 2* Math.PI * u + clock.getElapsedTime() * comet_gravitation_speed;
+		// 		var phi = comet_orbit_coeff_phi * Math.PI * v + clock.getElapsedTime() * comet_gravitation_speed;
+		// 		comet.position.x = Math.sin(theta) * Math.cos(phi) * comet_gravitation_coeff;
+		// 		comet.position.y = Math.sin(phi) * comet_gravitation_coeff;
+		// 		comet.position.z = Math.cos(phi) * Math.cos(theta) * comet_gravitation_coeff;
+		// 	}
+		// }
 
+		comet.position.x = Math.sin(clock.getElapsedTime() * comet_gravitation_speed) * comet_gravitation_coeff;
+		comet.position.z = Math.cos(clock.getElapsedTime() * comet_gravitation_speed) * comet_gravitation_coeff;
+		comet.position.y = (Math.sin(clock.getElapsedTime() * comet_gravitation_speed*comet_orbit_coeff_theta) + Math.cos(clock.getElapsedTime() * comet_gravitation_speed*comet_orbit_coeff_theta))*comet_orbit_coeff_phi;
+		comet.lookAt(new THREE.Vector3(0, 0, 0));
 	}
 
 	comet.geometry.verticesNeedUpdate = true;

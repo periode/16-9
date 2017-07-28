@@ -65,6 +65,10 @@ io.sockets.on('connection', function(socket){
 		socket.broadcast.emit('bg-flip-toggle', data);
 	});
 
+	socket.on('bg-flip-reset', function(data) {
+		socket.broadcast.emit('bg-flip-reset', data);
+	});
+
 	// -------------------------------------- COMET
 	// -------------------------------------- COMET
 	// -------------------------------------- COMET
@@ -89,6 +93,11 @@ io.sockets.on('connection', function(socket){
 	socket.on('comet-gravitation-speed', function(data) {
 		socket.broadcast.emit('comet-gravitation-speed', data);
 	});
+
+	socket.on('comet-orbit-coeff', function(data) {
+		socket.broadcast.emit('comet-orbit-coeff', data);
+	});
+
 
 	// -------------------------------------- WORLD
 	// -------------------------------------- WORLD

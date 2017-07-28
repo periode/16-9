@@ -1,6 +1,7 @@
-const SOCKET_SERVER_URL = "localhost:4783";
+const SOCKET_SERVER_URL = "104.236.239.60:4783";
+const SOCKET_LOCALHOST = "localhost:4783";
 
-const socket = io(SOCKET_SERVER_URL);
+const socket = io(SOCKET_LOCALHOST);
 
 socket.on('connect', function(){
 	console.log('socket connection established to', SOCKET_SERVER_URL);
@@ -59,6 +60,10 @@ function toggleBgFlip(){
 	socket.emit('bg-flip-toggle', bg_flip_toggle);
 }
 
+function resetBackgroundFlip(){
+	socket.emit('bg-flip-reset', 1);
+}
+
 // -------------------------------------- COMET
 // -------------------------------------- COMET
 // -------------------------------------- COMET
@@ -82,6 +87,10 @@ function updateCometGravitationCoeff(value){
 
 function updateCometGravitationSpeed(value){
 	socket.emit('comet-gravitation-speed', value);
+}
+
+function updateCometOrbitCoeff(_angle, _value){
+	socket.emit('comet-orbit-coeff', {angle:_angle, value:_value});
 }
 
 // -------------------------------------- WORLD
