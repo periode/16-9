@@ -33,14 +33,24 @@ var cube_offset = 0;
 var cube_offset_thresh = 0;
 var cube_clap = false;
 
+
+// -------------------------------------- NOISE
+// -------------------------------------- NOISE
+// -------------------------------------- NOISE
+// -------------------------------------- NOISE
+
+var noise;
+
 function initShaders(){
   // initSphere();
-  initCube();
+  // initCube();
+  initNoise();
 }
 
 function animateShader(){
   // animateSphere();
-  animateCube();
+  // animateCube();
+  animateNoise();
 }
 
 var fsSphere, vsSphere;
@@ -54,6 +64,8 @@ function loadAllShaders(){
 	loadShader('cubeBackground', 'fs');
   loadShader('cube', 'vs');
 	loadShader('cube', 'fs');
+  loadShader('noise', 'vs');
+	loadShader('noise', 'fs');
 }
 
 function loadShader(file, type, variable){
@@ -70,6 +82,8 @@ function loadShader(file, type, variable){
             vsCubeBackground = result;
           if(file == 'cube')
             vsCube = result;
+          if(file == 'noise')
+            vsNoise = result;
         }
 
 				if(type == 'fs'){
@@ -79,6 +93,8 @@ function loadShader(file, type, variable){
             fsCubeBackground = result;
           if(file == 'cube')
             fsCube = result;
+          if(file == 'noise')
+            fsNoise = result;
         }
 			},
 			fail: function(){
@@ -94,11 +110,26 @@ function loadShader(file, type, variable){
 // ==================================================================== INIT
 // ==================================================================== INIT
 
+function initNoise(){
+  var noiseGeometry = new THREE.PlaneGeometry(1200, 800, 1);
+  var noiseMat = new THREE.RawShaderMaterial({
+    uniforms: {
+      uTime:{type: 'f', value: 0.0}
+    },
+    vertexShader: vsNoise,
+    fragmentShader: fsNoise
+  });
+
+  noise = new THREE.Mesh(noiseGeometry, noiseMat);
+  noise.position = -120;
+  stage.add(noise);
+}
+
 function initCube(){
   var cubeGeometry = new THREE.BoxGeometry(100,100,100);
   var cubeMaterial = new THREE.RawShaderMaterial( {
     uniforms: {
-      uColor: { type: "c", value: new THREE.Color( 0x00ff00 ) },
+      uColor: { type: "c", value: new THREE.Color( 0xffff00 ) },
       uTime: { value: 0},
       uStep: { type: 'f', value: 0},
       uInvert: {value: false}
@@ -369,6 +400,10 @@ function changeSphereMode(mode){
   sphere.material.uniforms.uMode.value = mode;
 }
 
+
+function animateNoise(){
+  noise.material.uniforms.uTime.value = clock.getElapsedTime();
+}
 /*
 window.addEventListener('keypress', (event) => {
   if(event.key == 'm'){
