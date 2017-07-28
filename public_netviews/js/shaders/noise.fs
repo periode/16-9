@@ -139,41 +139,30 @@ void main() {
 
 
     // MODULO
-    uVerticalInterval = 2.;
-    uVerticalSpeed = 0.5;
-    innerModulo = mod(vPosition.x + uTime*uVerticalSpeed, uVerticalInterval);
+    float innerModulo = mod(vPosition.x + uTime*uVerticalSpeed, uVerticalInterval);
     col.r -= innerModulo;
     col.g -= innerModulo;
     col.b -= innerModulo;
 
-    uIntervalCoeff = .001;
-    uIntervalModulo = 20.;
-    uIntervalSpeed = 20.;
-    interval = mod(vPosition.x*uIntervalCoeff + vPosition.y*uIntervalCoeff * vPosition.z * uIntervalCoeff + uTime*uIntervalSpeed, uIntervalModulo);
+
+    float interval = mod(vPosition.x*uIntervalCoeff + vPosition.y*uIntervalCoeff * vPosition.z * uIntervalCoeff + uTime*uIntervalSpeed, uIntervalModulo);
     col.r *= interval;
     col.g *= interval;
     col.b *= interval;
 
 
     // BLOOM
-    uBloomSpeed = 0.001;
+
     vec3 bloom = vec3(sin(uTime*uBloomSpeed)*edge, cos(uTime*uBloomSpeed*0.1)*edge, 0.);
 
-    uBloomIntensity = 0.000001;
     float circle = mix(distance(bloom, vPosition), 0., edge);
     col -= circle*mod(vPosition.x + vPosition.y + uTime*100., 100.)*uBloomIntensity;
 
-    uTanSquaresSize = 0.1;
-    uTanSquareModulo = 99.;
     if(mod(tan(vPosition.y*uTanSquaresSize + uTime*.1), 100.) > uTanSquareModulo){
       col *= .01;
     }
 
-    uNoiseDist= 60000.;
-    uNoiseSpeed = 0.5;
-    uNoiseImpact = 0.0001;
-    uNoiseSize = 100.;
-    waves = mix(distance(origin, vPosition), 0., snoise(vec3(vPosition.x*uNoiseSize, vPosition.y *uNoiseSize, uTime*uNoiseSpeed))*uNoiseDist);
+    float waves = mix(distance(origin, vPosition), 0., snoise(vec3(vPosition.x*uNoiseSize, vPosition.y *uNoiseSize, uTime*uNoiseSpeed))*uNoiseDist);
     col *= waves*uNoiseImpact;
 
 

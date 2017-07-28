@@ -270,4 +270,25 @@ socket.on('cube-clap', function(data){
 
 socket.on('cube-invert', function(data){
 	invertCube();
-})
+});
+
+// -------------------------------------- NOISE
+// -------------------------------------- NOISE
+// -------------------------------------- NOISE
+// -------------------------------------- NOISE
+
+socket.on('noise-interval', function(data){
+	updateNoiseInterval(data.property, parseFloat(data.value));
+});
+
+socket.on('noise-bloom', function(data){
+	updateNoiseBloom(data.property, parseFloat(data.value));
+});
+
+socket.on('noise-tan', function(data){
+	updateNoiseTan(data.property, parseFloat(data.value));
+});
+
+socket.on('noise-overlay', function(data){
+	updateNoiseOverlay(data.property, parseFloat(data.value));
+});

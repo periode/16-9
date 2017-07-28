@@ -197,4 +197,25 @@ io.sockets.on('connection', function(socket){
 		socket.broadcast.emit('cube-invert', data);
 	});
 
+	// -------------------------------------- NOISE
+	// -------------------------------------- NOISE
+	// -------------------------------------- NOISE
+	// -------------------------------------- NOISE
+
+	socket.on('noise-interval', function(data){
+		socket.broadcast.emit('noise-interval', data);
+	});
+
+	socket.on('noise-bloom', function(data){
+		socket.broadcast.emit('noise-bloom', data);
+	});
+
+	socket.on('noise-tan', function(data){
+		socket.broadcast.emit('noise-tan', data);
+	});
+
+	socket.on('noise-overlay', function(data){
+		socket.broadcast.emit('noise-overlay', data);
+	});
+
 });

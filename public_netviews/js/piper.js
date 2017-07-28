@@ -114,7 +114,20 @@ function initNoise(){
   var noiseGeometry = new THREE.PlaneGeometry(1200, 800, 1);
   var noiseMat = new THREE.RawShaderMaterial({
     uniforms: {
-      uTime:{type: 'f', value: 0.0}
+      uTime:{type: 'f', value: 0.0},
+      uVerticalInterval:{type: 'f', value: 2.0},
+      uVerticalSpeed:{type: 'f', value: 0.5},
+      uIntervalCoeff:{type: 'f', value: 0.001},
+      uIntervalModulo:{type: 'f', value: 20.0},
+      uIntervalSpeed:{type: 'f', value: 20.0},
+      uBloomSpeed:{type: 'f', value: 0.001},
+      uBloomIntensity:{type: 'f', value: 0.000001},
+      uTanSquaresSize:{type: 'f', value: 0.1},
+      uTanSquareModulo:{type: 'f', value: 99.},
+      uNoiseDist:{type: 'f', value: 60000.0},
+      uNoiseSize:{type: 'f', value: 0.5},
+      uNoiseSpeed:{type: 'f', value: 0.0001},
+      uNoiseImpact:{type: 'f', value: 100.0}
     },
     vertexShader: vsNoise,
     fragmentShader: fsNoise
@@ -400,9 +413,76 @@ function changeSphereMode(mode){
   sphere.material.uniforms.uMode.value = mode;
 }
 
-
 function animateNoise(){
   noise.material.uniforms.uTime.value = clock.getElapsedTime();
+}
+
+function updateNoiseInterval(property, value){
+  switch(property){
+    case 'step':
+      noise.material.uniforms.uVerticalInterval.value = value;
+      break;
+    case 'vertspeed':
+      noise.material.uniforms.uVerticalSpeed.value = value;
+      break;
+    case 'coeff':
+      noise.material.uniforms.uIntervalCoeff.value = value;
+      break;
+    case 'modulo':
+      noise.material.uniforms.uIntervalModulo.value = value;
+      break;
+    case 'speed':
+      noise.material.uniforms.uIntervalSpeed.value = value;
+      break;
+    default:
+      break;
+  }
+
+}
+
+function updateNoiseBloom(property, value){
+  switch(property){
+    case 'speed':
+      noise.material.uniforms.uBloomSpeed.value = value;
+      break;
+    case 'intensity':
+      noise.material.uniforms.uBloomIntensity.value = value;
+      break;
+    default:
+      break;
+  }
+}
+
+function updateNoiseTan(property, value){
+  switch(property){
+    case 'size':
+      noise.material.uniforms.uTanSquaresSize.value = value;
+      break;
+    case 'modulo':
+      noise.material.uniforms.uTanSquareModulo.value = value;
+      break;
+    default:
+      break;
+  }
+}
+
+function updateNoiseOverlay(property, value){
+  switch(property){
+    case 'distance':
+      noise.material.uniforms.uNoiseDist.value = value;
+      break;
+    case 'size':
+      noise.material.uniforms.uNoiseSize.value = value;
+      break;
+    case 'speed':
+      noise.material.uniforms.uNoiseSpeed.value = value;
+      break;
+    case 'impact':
+      noise.material.uniforms.uNoiseImpact.value = value;
+      break;
+    default:
+      break;
+  }
 }
 /*
 window.addEventListener('keypress', (event) => {

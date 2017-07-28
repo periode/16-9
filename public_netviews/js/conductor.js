@@ -176,3 +176,24 @@ function toggleCubeClap(){
 function invertCube(){
 	socket.emit('cube-invert', 1);
 }
+
+// -------------------------------------- NOISE
+// -------------------------------------- NOISE
+// -------------------------------------- NOISE
+// -------------------------------------- NOISE
+
+function updateNoiseInterval(property, value){
+	socket.emit('noise-interval', {property: property, value: value});
+}
+
+function updateNoiseBloom(property, value){
+	socket.emit('noise-bloom', {property: property, value: value});
+}
+
+function updateNoiseTan(property, value){
+	socket.emit('noise-tan', {property: property, value: value});
+}
+
+function updateNoiseOverlay(property, value){
+	socket.emit('noise-overlay', {property: property, value: value});
+}
