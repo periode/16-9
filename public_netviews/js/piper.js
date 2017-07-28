@@ -34,13 +34,13 @@ var cube_offset_thresh = 0;
 var cube_clap = false;
 
 function initShaders(){
-  // initSphere();
-  initCube();
+  initSphere();
+  // initCube();
 }
 
 function animateShader(){
-  // animateSphere();
-  animateCube();
+  animateSphere();
+  // animateCube();
 }
 
 var fsSphere, vsSphere;
@@ -87,6 +87,12 @@ function loadShader(file, type, variable){
 			}
 	});
 }
+
+
+// ==================================================================== INIT
+// ==================================================================== INIT
+// ==================================================================== INIT
+// ==================================================================== INIT
 
 function initCube(){
   var cubeGeometry = new THREE.BoxGeometry(100,100,100);
@@ -275,6 +281,52 @@ function animateSphere(){
   sphere.geometry.attributes.aPhi.needsUpdate = true;
 }
 
+function increaseAngle(){
+  let coeff = .1
+  sphere_phi_coeff_target += (Math.floor(Math.random()*5)*0.5)*coeff;
+  sphere_theta_coeff_target += ((Math.floor(Math.random()*4)+1)*2)*coeff;
+}
+
+function decreaseAngle(){
+  let coeff = .1
+  sphere_phi_coeff_target -= (Math.floor(Math.random()*5)*0.5)*coeff;
+  sphere_theta_coeff_target -= ((Math.floor(Math.random()*4)+1)*2)*coeff;
+}
+
+function decraseExplosionRadius(){
+  sphere_explosion_rad_target -= (Math.floor(Math.random()*4)+3)*10
+}
+
+function increaseExplosionRadius(){
+  sphere_explosion_rad_target += (Math.floor(Math.random()*4)+3)*10
+}
+
+function randomExplosionRadius(){
+  sphere_explosion_rad_target = (Math.floor(Math.random()*4)+3)*50
+}
+
+function moveExplosionPosition(){
+
+  //------------------A
+  let coeff = 1
+  let theta = 2 * Math.random()*Math.PI;
+  let phi = Math.random()*Math.PI - Math.random()*Math.PI * 1;
+  let rad = 175;
+  sphere_explosion_pos_a_target[0] = Math.sin(theta) + Math.cos(phi) * rad;
+  sphere_explosion_pos_a_target[1] = Math.sin(phi) * rad;
+  sphere_explosion_pos_a_target[2] = Math.cos(phi) + Math.cos(theta) * rad;
+
+  //------------------B
+  sphere_explosion_pos_b_target[0] = Math.sin(theta) + Math.cos(phi) * rad;
+  sphere_explosion_pos_b_target[1] = Math.sin(phi) * rad;
+  sphere_explosion_pos_b_target[2] = Math.cos(phi) + Math.cos(theta) * rad;
+}
+
+function changeSphereMode(mode){
+  sphere.material.uniforms.uMode.value = mode;
+}
+
+/*
 window.addEventListener('keypress', (event) => {
   if(event.key == 'm'){
     let coeff = .1
@@ -332,5 +384,5 @@ window.addEventListener('keypress', (event) => {
 
 
 });
-
+*/
 loadAllShaders();

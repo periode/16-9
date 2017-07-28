@@ -134,3 +134,24 @@ function updateTracesDepth(value){
 function updateTracesStep(value){
 	socket.emit('traces-step', value);
 }
+
+// -------------------------------------- SPHERE
+// -------------------------------------- SPHERE
+// -------------------------------------- SPHERE
+// -------------------------------------- SPHERE
+
+function moveExplosionPosition(){
+	socket.emit('explosion-position', 1);
+}
+
+function changeExplosionRadius(value){
+	socket.emit('explosion-radius', value);
+}
+
+function changeAngleStep(direction){
+	socket.emit('explosion-angle', direction);
+}
+
+function changeSphereMode(mode){
+	socket.emit('sphere-mode', mode);
+}

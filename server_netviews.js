@@ -153,4 +153,26 @@ io.sockets.on('connection', function(socket){
 	socket.on('traces-oscill', function(data){
 		socket.broadcast.emit('traces-oscill', data);
 	});
+
+
+	// -------------------------------------- SPHERE
+	// -------------------------------------- SPHERE
+	// -------------------------------------- SPHERE
+	// -------------------------------------- SPHERE
+
+	socket.on('explosion-position', function(data){
+		socket.broadcast.emit('explosion-position', data);
+	});
+
+	socket.on('explosion-radius', function(data){
+		socket.broadcast.emit('explosion-radius', data);
+	});
+
+	socket.on('explosion-angle', function(data){
+		socket.broadcast.emit('explosion-angle', data);
+	});
+
+	socket.on('sphere-mode', function(data){
+		socket.broadcast.emit('sphere-mode', data);
+	});
 });

@@ -218,3 +218,35 @@ socket.on('traces-oscill', function(data){
 socket.on('clear-color', function(value){
 	clearColor(value);
 });
+
+
+
+// -------------------------------------- SPHERE
+// -------------------------------------- SPHERE
+// -------------------------------------- SPHERE
+// -------------------------------------- SPHERE
+
+socket.on('explosion-position', function(value){
+	console.log('moving explosion');
+	moveExplosionPosition();
+});
+
+socket.on('explosion-angle', function(value){
+	if(value == 1)
+		increaseAngle();
+	if(value == -1)
+		decreaseAngle();
+});
+
+socket.on('explosion-radius', function(value){
+	if(value == 1)
+		increaseExplosionRadius();
+	if(value == -1)
+		decraseExplosionRadius();
+	if(value == 0)
+		randomExplosionRadius();
+});
+
+socket.on('sphere-mode', function(mode){
+	changeSphereMode(mode);
+})

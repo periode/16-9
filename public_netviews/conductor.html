@@ -130,11 +130,45 @@
 
 			<button onclick="setShow(1)">start wosx</button><button onclick="toggleText('wosx')">text wosx</button>
 			<hr />
-			<h3 class="section">INTRO</h3>
+			<h3 class="section">CUBE</h3>
+			<button onclick="introduce('cube')">start</button>
+			<li>
+				rotation x <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.8" onchange="updateCubeRotation('x', 'rot', this.value)" /> 0<br>
+				rotation y <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.8" onchange="updateCubeRotation('y', 'rot', this.value)" /> 0<br>
+				rotation z <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.8" onchange="updateCubeRotation('z', 'rot', this.value)" /> 0<br>
+			</li>
+			<li>
+				cube clap
+			</li>
+			<li>
+				cube invert
+			</li>
+			<li>
+				background lines speed 1: <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.8" onchange="updateBackgroundCubeLines('speed1', this.value)" /> 0<br>
+				background lines speed 2: <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.8" onchange="updateBackgroundCubeLines('speed2', this.value)" /> 0<br>
+			</li>
 			<hr />
-			<h3 class="section">BUILD UP</h3>
+			<h3 class="section">SPHERE</h3>
+			<button onclick="introduce('sphere')">start</button>
+			<li>
+				explosion position <button onclick="moveExplosionPosition()">move</button>
+			</li>
+			<li>
+				explosion radius <button onclick="changeExplosionRadius(-1)">decrease</button><br />
+				explosion radius <button onclick="changeExplosionRadius(0)">random</button><br />
+				explosion radius <button onclick="changeExplosionRadius(1)">increase</button>
+			</li>
+			<li>
+				angle decrease <button onclick="changeAngleStep(-1)">decrease</button>
+				angle increase <button onclick="changeAngleStep(1)">increase</button>
+			</li>
+			<li>
+				mode toggle <button onclick="changeSphereMode(1)">1</button>
+				mode toggle <button onclick="changeSphereMode(2)">2</button>
+				mode toggle <button onclick="changeSphereMode(3)">3</button>
+			</li>
 			<hr />
-			<h3 class="section">CLIMAX</h3>
+			<h3 class="section">NOISE</h3>
 			<hr />
 			<h3 class="section">OUTRO</h3>
 		</div>
