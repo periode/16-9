@@ -14,7 +14,127 @@ app.use(express.static('public_netviews'));
 
 // ---------------------- STATE
 var STATE = {
-  show: 0
+  show: 0,
+	clearColor: 0x000000,
+	wireframe:{
+		"background": false,
+		"comet": false,
+		"world": false,
+		"traces": false,
+	},
+	introduce:{
+		"background": false,
+		"comet": false,
+		"world": false,
+		"traces": false,
+		"noise": false,
+		"cube": false,
+		"sphere": false
+	},
+	toggle:{
+		"background": false,
+		"comet": false,
+		"world": false,
+		"traces": false,
+		"noise": false,
+		"cube": false,
+		"sphere": false
+	},
+	toggleText:{
+		"netviews": true,
+		"wuso": false,
+		"wosx": false
+	},
+	background:{
+		scale:{
+			x: 1,
+			y: 1
+		},
+		oscill: 0,
+		flip : false,
+		reset: false
+	},
+	comet:{
+		rotation:0,
+		distort:{
+			start: false,
+			coeff: 0
+		},
+		gravitation:{
+			coeff: 0,
+			speed: 0
+		},
+		orbit: {
+			phi: 0,
+			theta:0
+		}
+	},
+	world:{
+		rotation:{
+			x: 0,
+			y: 0,
+			z: 0
+		},
+		geometry: false,
+		spheredrop: false
+	},
+	traces:{
+		depth: 0,
+		step: 0,
+		oscill: {
+			coeff:{
+				x: 0,
+				y:0
+			},
+			speed:{
+				x: 0,
+				y:0
+			}
+		}
+	},
+	sphere: {
+		position:0,
+		radius:0,
+		angle: 0,
+		mode: 0
+	},
+	cube: {
+		rotation: {
+			x: 0,
+			y: 0,
+			z: 0
+		},
+		lines: {
+			down: 0,
+			interval: 0
+		},
+		invert: false,
+		clap: false,
+	},
+	noise: {
+		interval:{
+			vertinterval: 0,
+			vertspeed: 0,
+			coeff: 0,
+			modulo: 0,
+			speed: 0
+		},
+		bloom:{
+			speed: 0,
+			intensity: 0,
+		},
+		tan: {
+			size: 0,
+			modulo: 0,
+		},
+		overlay:{
+			distance: 0,
+			size: 0,
+			speed: 0,
+			impact: 0
+		}
+	},
+	her: "salber"
 };
 
 var io = require('socket.io').listen(server);
@@ -24,198 +144,153 @@ io.sockets.on('connection', function(socket){
 	//load all state things
 	socket.emit('audience-connect', STATE);
 
+
+//-------------DEPRECATED?
 	socket.on('conductor-start', function(data) {
 		console.log('received start from the conductor');
 		socket.broadcast.emit('performer-start', data);
 
 		//maybe some reset states?
 	});
-
 	socket.on('set-show', function(data){
 		STATE.show = data;
 		socket.broadcast.emit('set-show', data);
 	});
-
 	socket.on('wireframe-toggle', function(data) {
+		STATE[data] = true;
 		socket.broadcast.emit('wireframe-toggle', data);
 	});
-
 	socket.on('clear-color', function(data) {
+		STATE.clearColor = true;
 		socket.broadcast.emit('clear-color', data);
 	});
-
 	socket.on('introduce', function(data){
+		STATE.introduce[data.value] = true;
 		socket.broadcast.emit('introduce', data);
 	});
-
 	socket.on('toggle', function(data){
+		STATE.toggle[data] = !STATE.toggle[data];
 		socket.broadcast.emit('toggle', data);
 	});
-
 	socket.on('toggle-text', function(data){
+		STATE.toggleText[data] = !STATE.toggleText[data];
 		socket.broadcast.emit('toggle-text', data);
 	});
 
-	socket.on('fade-out', function(data){
-		socket.broadcast.emit('fade-out', data);
-	});
-
-	socket.on('fade-in', function(data){
-		socket.broadcast.emit('fade-in', data);
-	});
-
-	// -------------------------------------- BACKGROUND
-	// -------------------------------------- BACKGROUND
-	// -------------------------------------- BACKGROUND
 	// -------------------------------------- BACKGROUND
 
 	socket.on('bg-scale-x', function(data) {
+		STATE.background.scale.x = data;
 		socket.broadcast.emit('bg-scale-x', data);
 	});
-
 	socket.on('bg-scale-y', function(data) {
+		STATE.background.scale.y = data;
 		socket.broadcast.emit('bg-scale-y', data);
 	});
-
 	socket.on('bg-oscill-coeff', function(data) {
+		STATE.background.oscill.coeff = data;
 		socket.broadcast.emit('bg-oscill-coeff', data);
 	});
-
 	socket.on('bg-flip-toggle', function(data) {
+		STATE.background.flip = !STATE.background.flip;
 		socket.broadcast.emit('bg-flip-toggle', data);
 	});
-
 	socket.on('bg-flip-reset', function(data) {
-		socket.broadcast.emit('bg-flip-reset', data);
-	});
+		STATE.background.flip = false;
+		socket.broadcast.emit('bg-flip-reset', data);	});
 
-	// -------------------------------------- COMET
-	// -------------------------------------- COMET
-	// -------------------------------------- COMET
 	// -------------------------------------- COMET
 
 	socket.on('comet-rotation', function(data) {
+		STATE.comet.rotation = data;
 		socket.broadcast.emit('comet-rotation', data);
 	});
-
 	socket.on('comet-distort-start', function(data) {
+		STATE.comet.distort.start = true;
 		socket.broadcast.emit('comet-distort-start', data);
 	});
-
 	socket.on('comet-distort-coeff', function(data) {
+		STATE.comet.distort.coeff = data;
 		socket.broadcast.emit('comet-distort-coeff', data);
 	});
-
 	socket.on('comet-gravitation-coeff', function(data) {
-		socket.broadcast.emit('comet-gravitation-coeff', data);
-	});
-
+		STATE.comet.gravitation.coeff = data;
+		socket.broadcast.emit('comet-gravitation-coeff', data);	});
 	socket.on('comet-gravitation-speed', function(data) {
-		socket.broadcast.emit('comet-gravitation-speed', data);
-	});
-
+		STATE.comet.gravitation.speed = value;
+		socket.broadcast.emit('comet-gravitation-speed', data);	});
 	socket.on('comet-orbit-coeff', function(data) {
-		socket.broadcast.emit('comet-orbit-coeff', data);
-	});
+		STATE.comet.gravitation[data.property] = data.value;
+		socket.broadcast.emit('comet-orbit-coeff', data);	});
 
 
-	// -------------------------------------- WORLD
-	// -------------------------------------- WORLD
-	// -------------------------------------- WORLD
 	// -------------------------------------- WORLD
 
 	socket.on('world-rotation', function(data){
-		socket.broadcast.emit('world-rotation', data);
-	});
-
+		STATE.world.rotation[data.axis] = data.value;
+		socket.broadcast.emit('world-rotation', data); });
 	socket.on('world-geometry', function(data){
-		socket.broadcast.emit('world-geometry', data);
-	});
-
+		STATE.world.geometry = true;
+		socket.broadcast.emit('world-geometry', data); });
 	socket.on('toggle-spheredrop', function(data){
-		socket.broadcast.emit('toggle-spheredrop', data);
-	});
+		STATE.world.spheredrop = !STATE.world.spheredrop;
+		socket.broadcast.emit('toggle-spheredrop', data);});
 
-	// -------------------------------------- TRACES
-	// -------------------------------------- TRACES
-	// -------------------------------------- TRACES
 	// -------------------------------------- TRACES
 
 	socket.on('traces-depth', function(data){
-		socket.broadcast.emit('traces-depth', data);
-	});
-
+		STATE.traces.depth = data;
+		socket.broadcast.emit('traces-depth', data); });
 	socket.on('traces-step', function(data){
-		socket.broadcast.emit('traces-step', data);
-	});
-
-
+		STATE.traces.depth = data;
+		socket.broadcast.emit('traces-step', data);	});
 	socket.on('traces-oscill', function(data){
-		socket.broadcast.emit('traces-oscill', data);
-	});
+		STATE.traces.oscill[data.type][data.axis] = data.value;
+		socket.broadcast.emit('traces-oscill', data);	});
 
-
-	// -------------------------------------- SPHERE
-	// -------------------------------------- SPHERE
-	// -------------------------------------- SPHERE
 	// -------------------------------------- SPHERE
 
 	socket.on('explosion-position', function(data){
-		socket.broadcast.emit('explosion-position', data);
-	});
-
+		STATE.sphere.position = 1;
+		socket.broadcast.emit('explosion-position', data); });
 	socket.on('explosion-radius', function(data){
-		socket.broadcast.emit('explosion-radius', data);
-	});
-
+		STATE.sphere.radius = 1;
+		socket.broadcast.emit('explosion-radius', data); });
 	socket.on('explosion-angle', function(data){
-		socket.broadcast.emit('explosion-angle', data);
-	});
-
+		STATE.sphere.angle = 1;
+		socket.broadcast.emit('explosion-angle', data); });
 	socket.on('sphere-mode', function(data){
-		socket.broadcast.emit('sphere-mode', data);
-	});
+		STATE.sphere.mode = data;
+		socket.broadcast.emit('sphere-mode', data);	});
 
-	// -------------------------------------- CUBE
-	// -------------------------------------- CUBE
-	// -------------------------------------- CUBE
 	// -------------------------------------- CUBE
 
 	socket.on('cube-rotation', function(data){
-		socket.broadcast.emit('cube-rotation', data);
-	});
-
+		STATE.cube.rotation[data.axis] = data.value;
+		socket.broadcast.emit('cube-rotation', data);	});
 	socket.on('cube-background-lines', function(data){
-		socket.broadcast.emit('cube-background-lines', data);
-	});
-
+		STATE.cube.lines[data.property] = data.value;
+		socket.broadcast.emit('cube-background-lines', data);	});
 	socket.on('cube-clap', function(data){
-		socket.broadcast.emit('cube-clap', data);
-	});
-
+		STATE.cube.clap = !STATE.cube.clap;
+		socket.broadcast.emit('cube-clap', data);	});
 	socket.on('cube-invert', function(data){
-		socket.broadcast.emit('cube-invert', data);
-	});
+		STATE.cube.invert = !STATE.cube.invert;
+		socket.broadcast.emit('cube-invert', data);	});
 
-	// -------------------------------------- NOISE
-	// -------------------------------------- NOISE
-	// -------------------------------------- NOISE
 	// -------------------------------------- NOISE
 
 	socket.on('noise-interval', function(data){
-		socket.broadcast.emit('noise-interval', data);
-	});
-
+		STATE.noise.interval[data.property] = data.value;
+		socket.broadcast.emit('noise-interval', data);	});
 	socket.on('noise-bloom', function(data){
-		socket.broadcast.emit('noise-bloom', data);
-	});
-
+		STATE.noise.bloom[data.property] = data.value;
+		socket.broadcast.emit('noise-bloom', data);	});
 	socket.on('noise-tan', function(data){
-		socket.broadcast.emit('noise-tan', data);
-	});
-
+		STATE.noise.tan[data.property] = data.value;
+		socket.broadcast.emit('noise-tan', data);	});
 	socket.on('noise-overlay', function(data){
-		socket.broadcast.emit('noise-overlay', data);
-	});
+		STATE.noise.overlay[data.property] = data.value;
+		socket.broadcast.emit('noise-overlay', data);	});
 
 });

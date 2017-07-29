@@ -125,19 +125,15 @@ socket.on('toggle-text', function(value){
 socket.on('bg-scale-x', function(value){
 	bg_scale_x = value;
 });
-
 socket.on('bg-scale-y', function(value){
 	bg_scale_y = value;
 });
-
 socket.on('bg-oscill-coeff', function(value){
 	bg_oscillation_coeff = value;
 });
-
 socket.on('bg-flip-toggle', function(value){
 	bg_flip_toggle = value;
 });
-
 socket.on('bg-flip-reset', function(value){
 	resetBackgroundFlip();
 });
@@ -150,23 +146,18 @@ socket.on('bg-flip-reset', function(value){
 socket.on('comet-rotation', function(value){
 	comet_rotation_coeff = value;
 });
-
 socket.on('comet-distort-start', function(value){
 	tweenComet();
 });
-
 socket.on('comet-distort-coeff', function(value){
 	comet_distort_coeff = value;
 });
-
 socket.on('comet-gravitation-coeff', function(value){
 	comet_gravitation_coeff = value;
 });
-
 socket.on('comet-gravitation-speed', function(value){
 	comet_gravitation_speed = value;
 });
-
 socket.on('comet-orbit-coeff', function(data){
 	if(data.angle == 'phi')
 		comet_orbit_coeff_phi = data.value;
