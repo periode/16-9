@@ -148,7 +148,7 @@
 				</li>
 				<li>
 					lines speed down: <input id="slide" type="range" min="0.001" max="100" step="0.01" value="0.8" onchange="updateBackgroundCubeLines('down', this.value)" /> | 0.001 - 100.0 | <span id="label_cubedown">0.8</span><br>
-					lines speed interval: <input id="slide" type="range" min="0.001" max="2" step="0.01" value="0.8" onchange="updateBackgroundCubeLines('interval', this.value)" /> | 0.001 - 2.0 | <span id="label_cubeinterval">0.8</span><br>
+					lines speed interval: <input id="slide" type="range" min="0.001" max="0.5" step="0.01" value="0.4" onchange="updateBackgroundCubeLines('interval', this.value)" /> | 0.001 - 0.5 | <span id="label_cubeinterval">0.8</span><br>
 				</li>
 			</ul>
 			<hr />
@@ -181,9 +181,9 @@
 			<ul>
 				<li>
 					vertinterval | <input id="slide" type="range" min="1" max="50" step="0.01" value="50" onchange="updateNoiseInterval('vertinterval', this.value)" /> | 1.0 - 50.0 | <span id="label_noisevertinterval">50</span><br>
-					vertspeed | <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.01" onchange="updateNoiseInterval('vertspeed', this.value)" /> | 0.001 - 1.0 | <span id="label_noisevertspeed">0.01</span><br>
+					vertspeed | <input id="slide" type="range" min="0.001" max="100" step="0.01" value="0.01" onchange="updateNoiseInterval('vertspeed', this.value)" /> | 0.001 - 100.0 | <span id="label_noisevertspeed">0.01</span><br>
 					coeff | <input id="slide" type="range" min="0" max="100" step="1" value="0" onchange="updateNoiseInterval('coeff', this.value)" /> | 0.0 - 100.0 | <span id="label_noiseintervalcoeff">0.0</span><br>
-					modulo | <input id="slide" type="range" min="0.001" max="200" step="1" value="100" onchange="updateNoiseInterval('modulo', this.value)" /> | 0.001 - 200.0 | <span id="label_noiseintervalmodulo">100.0</span><br>
+					modulo | <input id="slide" type="range" min="0.001" max="50" step="1" value="100" onchange="updateNoiseInterval('modulo', this.value)" /> | 0.001 - 50.0 | <span id="label_noiseintervalmodulo">100.0</span><br>
 					speed | <input id="slide" type="range" min="0.001" max="100" step="0.1" value="20" onchange="updateNoiseInterval('speed', this.value)" /> | 0.001 - 100.0 | <span id="label_noiseintervalspeed">20.0</span><br>
 				</li>
 				<li>
@@ -199,7 +199,7 @@
 				<li>
 					noise <br />
 					distance | <input id="slide" type="range" min="0.001" max="10000" step="0.0001" value="6000" onchange="updateNoiseOverlay('distance', this.value)" /> | 0.001 - 10000 | <span id="label_noisedistance">6000.0</span><br>
-					size | <input id="slide" type="range" min="0.0001" max="1" step="0.000001" value="0.05" onchange="updateNoiseOverlay('size', this.value)" /> | 0.0001 - 1.0 | <span id="label_noisesize">0.05</span><br>
+					size | <input id="slide" type="range" min="0.00001" max="0.01" step="0.000001" value="0.01" onchange="updateNoiseOverlay('size', this.value)" /> | 0.00001 - 0.01 | <span id="label_noisesize">0.05</span><br>
 					speed | <input id="slide" type="range" min="0.001" max="1" step="0.001" value="0.5" onchange="updateNoiseOverlay('speed', this.value)" /> | 0.001 - 1.0 | <span id="label_noisespeed">0.5</span><br>
 					impact | <input id="slide" type="range" min="0.0001" max="1." step="0.00001" value="0.001" onchange="updateNoiseOverlay('impact', this.value)" /> | 0.0001 - 1.0 | <span id="label_noiseimpact">0.001</span><br>
 				</li>
