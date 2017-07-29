@@ -254,10 +254,10 @@ io.sockets.on('connection', function(socket){
 		STATE.sphere.position = 1;
 		socket.broadcast.emit('explosion-position', data); });
 	socket.on('explosion-radius', function(data){
-		STATE.sphere.radius = 1;
+		STATE.sphere.radius = data;
 		socket.broadcast.emit('explosion-radius', data); });
 	socket.on('explosion-angle', function(data){
-		STATE.sphere.angle = 1;
+		STATE.sphere.angle += data;
 		socket.broadcast.emit('explosion-angle', data); });
 	socket.on('sphere-mode', function(data){
 		STATE.sphere.mode = data;

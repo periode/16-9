@@ -451,7 +451,7 @@ function animateNoise(){
 
 function updateNoiseInterval(property, value){
   switch(property){
-    case 'step':
+    case 'vertinterval':
       noise.material.uniforms.uVerticalInterval.value = value;
       break;
     case 'vertspeed':

@@ -132,48 +132,52 @@
 			<hr />
 			<h3 class="section">CUBE</h3>
 			<button onclick="introduce('cube')">start</button>
-			<li>
-				rotation x <input id="slide" type="range" min="0.00001" max="0.1" step="0.00001" value="0.0001" onchange="updateCubeRotation('x', this.value)" /> 0<br>
-				rotation y <input id="slide" type="range" min="0.00001" max="0.1" step="0.00001" value="0.2" onchange="updateCubeRotation('y', this.value)" /> 0<br>
-				rotation z <input id="slide" type="range" min="0.00001" max="0.1" step="0.00001" value="0.001" onchange="updateCubeRotation('z', this.value)" /> 0<br>
-				<button onclick="updateCubeRotation('r', 0)">reset rotation</button>
-			</li>
-			<li>
-				cube clap <button onclick="toggleCubeClap()">toggle</button>
-			</li>
-			<li>
-				cube invert <button onclick="invertCube()"> toggle</button>
-			</li>
-			<li>
-				background lines speed down: <input id="slide" type="range" min="0.001" max="100" step="0.01" value="0.8" onchange="updateBackgroundCubeLines('down', this.value)" /> 0<br>
-				background lines speed interval: <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.8" onchange="updateBackgroundCubeLines('interval', this.value)" /> 0<br>
-			</li>
+			<ul>
+				<li>
+					rotation x <input id="slide" type="range" min="0.00001" max="0.1" step="0.00001" value="0.0001" onchange="updateCubeRotation('x', this.value)" /> 0<br>
+					rotation y <input id="slide" type="range" min="0.00001" max="0.1" step="0.00001" value="0.2" onchange="updateCubeRotation('y', this.value)" /> 0<br>
+					rotation z <input id="slide" type="range" min="0.00001" max="0.1" step="0.00001" value="0.001" onchange="updateCubeRotation('z', this.value)" /> 0<br>
+					<button onclick="updateCubeRotation('r', 0)">reset rotation</button>
+				</li>
+				<li>
+					cube clap <button onclick="toggleCubeClap()">toggle</button>
+				</li>
+				<li>
+					cube invert <button onclick="invertCube()"> toggle</button>
+				</li>
+				<li>
+					background lines speed down: <input id="slide" type="range" min="0.001" max="100" step="0.01" value="0.8" onchange="updateBackgroundCubeLines('down', this.value)" /> 0<br>
+					background lines speed interval: <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.8" onchange="updateBackgroundCubeLines('interval', this.value)" /> 0<br>
+				</li>
+			</ul>
 			<hr />
 			<h3 class="section">SPHERE</h3>
 			<button onclick="introduce('sphere')">start</button>
-			<li>
-				explosion position <button onclick="moveExplosionPosition()">move</button>
-			</li>
-			<li>
-				explosion radius <button onclick="changeExplosionRadius(-1)">decrease</button><br />
-				explosion radius <button onclick="changeExplosionRadius(0)">random</button><br />
-				explosion radius <button onclick="changeExplosionRadius(1)">increase</button>
-			</li>
-			<li>
-				angle decrease <button onclick="changeAngleStep(-1)">decrease</button>
-				angle increase <button onclick="changeAngleStep(1)">increase</button>
-			</li>
-			<li>
-				mode toggle <button onclick="changeSphereMode(1)">1</button>
-				mode toggle <button onclick="changeSphereMode(2)">2</button>
-				mode toggle <button onclick="changeSphereMode(3)">3</button>
-			</li>
+			<ul>
+				<li>
+					explosion position <button onclick="moveExplosionPosition()">move</button>
+				</li>
+				<li>
+					explosion radius <button onclick="changeExplosionRadius(-1)">decrease</button><br />
+					explosion radius <button onclick="changeExplosionRadius(0)">random</button><br />
+					explosion radius <button onclick="changeExplosionRadius(1)">increase</button>
+				</li>
+				<li>
+					angle decrease <button onclick="changeAngleStep(-1)">decrease</button>
+					angle increase <button onclick="changeAngleStep(1)">increase</button>
+				</li>
+				<li>
+					mode toggle <button onclick="changeSphereMode(1)">1</button>
+					mode toggle <button onclick="changeSphereMode(2)">2</button>
+					mode toggle <button onclick="changeSphereMode(3)">3</button>
+				</li>
+			</ul>
 			<hr />
 			<h3 class="section">NOISE</h3>
 			<hr />
 			<button onclick="introduce('noise')">start</button>
 			<li>
-				vertical interval: <input id="slide" type="range" min="1" max="50" step="0.01" value="50" onchange="updateNoiseInterval('step', this.value)" /> 50<br>
+				vertical interval: <input id="slide" type="range" min="1" max="50" step="0.01" value="50" onchange="updateNoiseInterval('vertinterval', this.value)" /> 50<br>
 				vertical speed: <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.01" onchange="updateNoiseInterval('vertspeed', this.value)" /> 0.01<br>
 				interval coeff: <input id="slide" type="range" min="0" max="100" step="1" value="0" onchange="updateNoiseInterval('coeff', this.value)" /> 0<br>
 				interval modulo: <input id="slide" type="range" min="0.001" max="200" step="1" value="100" onchange="updateNoiseInterval('modulo', this.value)" /> 100<br>
@@ -190,7 +194,7 @@
 			<li>
 				noise distance: <input id="slide" type="range" min="0.001" max="10000" step="0.0001" value="6000" onchange="updateNoiseOverlay('distance', this.value)" /> 6000-0.001<br>
 				noise size: <input id="slide" type="range" min="0.0001" max="1" step="0.000001" value="0.05" onchange="updateNoiseOverlay('size', this.value)" /> 0.05<br>
-				noise speed: <input id="slide" type="range" min="0.001" max="10" step="0.001" value="0.5" onchange="updateNoiseOverlay('speed', this.value)" /> 0.5<br>
+				noise speed: <input id="slide" type="range" min="0.001" max="1" step="0.001" value="0.5" onchange="updateNoiseOverlay('speed', this.value)" /> 0.5<br>
 				noise impact: <input id="slide" type="range" min="0.0001" max="1." step="0.00001" value="0.001" onchange="updateNoiseOverlay('impact', this.value)" /> 0.00001<br>
 			</li>
 			<h3 class="section">OUTRO</h3>

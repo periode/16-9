@@ -104,10 +104,45 @@ function updateState(state){
 	traces_oscill_speed_x = state.traces.oscill.speed.x;
 
 	//sphere
+	if(state.show == 1){
+		if(state.sphere.position != 0)
+			moveExplosionPosition();
+		if(state.sphere.radius != 1)
+			randomExplosionRadius();
+		if(state.sphere.angle > 0){
+			for(var i = 0; i < state.sphere.angle; i++){
+				increaseAngle();
+			}
+		}
+		changeSphereMode(state.sphere.mode);
 
-	//noise
+		//cube
+		setCubeRotationSpeed('x', state.cube.rotation.x);
+		setCubeRotationSpeed('y', state.cube.rotation.y);
+		setCubeRotationSpeed('z', state.cube.rotation.z);
+		setBackgroundCubeLines('down',state.cube.lines.down);
+		setBackgroundCubeLines('interval',state.cube.lines.interval);
+		if(state.cube.clap) toggleCubeClap();
+		if(state.cube.invert) invertCube();
 
-	//cube
+		//noise
+		updateNoiseInterval('vertinterval', state.noise.interval.vertinterval);
+		updateNoiseInterval('vertspeed', state.noise.interval.vertspeed);
+		updateNoiseInterval('coeff', state.noise.interval.coeff);
+		updateNoiseInterval('modulo', state.noise.interval.modulo);
+		updateNoiseInterval('speed', state.noise.interval.speed);
+
+		updateNoiseBloom('speed', state.noise.bloom.speed);
+		updateNoiseBloom('intensity', state.noise.bloom.intensity);
+
+		updateNoiseTan('size', state.noise.tan.size);
+		updateNoiseTan('modulo', state.noise.tan.modulo);
+
+		updateNoiseOverlay('distance', state.noise.overlay.distance);
+		updateNoiseOverlay('size', state.noise.overlay.size);
+		updateNoiseOverlay('speed', state.noise.overlay.speed);
+		updateNoiseOverlay('impact', state.noise.overlay.impact);
+	}
 }
 
 socket.on('set-show', function(index){
@@ -201,17 +236,11 @@ socket.on('fade-out', function(value){
 socket.on('toggle-text', function(value){
 	toggleText(value);
 });
+socket.on('clear-color', function(value){
+	clearColor(value);
+});
 
 // -------------------------------------- BACKGROUND
-// -------------------------------------- BACKGROUND
-// -------------------------------------- BACKGROUND
-// -------------------------------------- BACKGROUND
-//lfo is intensity of everything
-//bg_scale_x 0-2
-//bg_scale_y 0-2
-//bg_flip_toggle (get new rotation) bool
-//bg_color_toggle (get new color) bool
-//bg_oscillation_coeff 0-2
 
 socket.on('bg-scale-x', function(value){
 	bg_scale_x = value;
@@ -229,9 +258,6 @@ socket.on('bg-flip-reset', function(value){
 	resetBackgroundFlip();
 });
 
-// -------------------------------------- COMET
-// -------------------------------------- COMET
-// -------------------------------------- COMET
 // -------------------------------------- COMET
 
 socket.on('comet-rotation', function(value){
@@ -257,9 +283,6 @@ socket.on('comet-orbit-coeff', function(data){
 });
 
 // -------------------------------------- WORLD
-// -------------------------------------- WORLD
-// -------------------------------------- WORLD
-// -------------------------------------- WORLD
 
 socket.on('world-rotation', function(data){
 	if(data.axis == 'x')
@@ -277,18 +300,13 @@ socket.on('toggle-spheredrop', function(data){
 })
 
 // -------------------------------------- TRACES
-// -------------------------------------- TRACES
-// -------------------------------------- TRACES
-// -------------------------------------- TRACES
 
 socket.on('traces-depth', function(data){
 	traces_depth_coeff = data;
 });
-
 socket.on('traces-step', function(data){
 	traces_oscill_step = data;
 });
-
 socket.on('traces-oscill', function(data){
 	if(data.axis == 'x'){
 		if(data.type == 'coeff')
@@ -303,30 +321,17 @@ socket.on('traces-oscill', function(data){
 	}
 });
 
-
-socket.on('clear-color', function(value){
-	clearColor(value);
-});
-
-
-
-// -------------------------------------- SPHERE
-// -------------------------------------- SPHERE
-// -------------------------------------- SPHERE
 // -------------------------------------- SPHERE
 
 socket.on('explosion-position', function(value){
-	console.log('moving explosion');
 	moveExplosionPosition();
 });
-
 socket.on('explosion-angle', function(value){
 	if(value == 1)
 		increaseAngle();
 	if(value == -1)
 		decreaseAngle();
 });
-
 socket.on('explosion-radius', function(value){
 	if(value == 1)
 		increaseExplosionRadius();
@@ -335,35 +340,25 @@ socket.on('explosion-radius', function(value){
 	if(value == 0)
 		randomExplosionRadius();
 });
-
 socket.on('sphere-mode', function(mode){
 	changeSphereMode(mode);
 });
 
 // -------------------------------------- CUBE
-// -------------------------------------- CUBE
-// -------------------------------------- CUBE
-// -------------------------------------- CUBE
 
 socket.on('cube-rotation', function(data){
 	setCubeRotationSpeed(data.axis, data.value);
 });
-
 socket.on('cube-background-lines', function(data){
 	setBackgroundCubeLines(data.property, data.value);
 });
-
 socket.on('cube-clap', function(data){
 	toggleCubeClap();
 });
-
 socket.on('cube-invert', function(data){
 	invertCube();
 });
 
-// -------------------------------------- NOISE
-// -------------------------------------- NOISE
-// -------------------------------------- NOISE
 // -------------------------------------- NOISE
 
 socket.on('noise-interval', function(data){
