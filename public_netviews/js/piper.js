@@ -42,15 +42,20 @@ var cube_clap = false;
 var noise;
 
 function initShaders(){
-  // initSphere();
-  // initCube();
+  initSphere();
+  initCube();
   initNoise();
 }
 
 function animateShader(){
-  // animateSphere();
-  // animateCube();
-  animateNoise();
+  if(stage.getObjectById(sphere.id) != null)
+    animateSphere();
+
+  if(stage.getObjectById(cube.id) != null)
+    animateCube();
+
+  if(stage.getObjectById(noise.id) != null)
+    animateNoise();
 }
 
 var fsSphere, vsSphere;
@@ -135,7 +140,38 @@ function initNoise(){
 
   noise = new THREE.Mesh(noiseGeometry, noiseMat);
   noise.position = -120;
+}
+
+function introduceNoise(){
   stage.add(noise);
+
+  if(stage.getObjectById(cube.id) != null)
+    stage.remove(cube);
+  if(stage.getObjectById(cubeBackground.id) != null)
+    stage.remove(cubeBackground);
+  if(stage.getObjectById(sphere.id) != null)
+    stage.remove(sphere);
+}
+
+function introduceSphere(){
+  stage.add(sphere);
+
+  if(stage.getObjectById(cube.id) != null)
+    stage.remove(cube);
+  if(stage.getObjectById(cubeBackground.id) != null)
+    stage.remove(cubeBackground);
+  if(stage.getObjectById(noise.id) != null)
+    stage.remove(noise);
+}
+
+function introduceCube(){
+  stage.add(cube);
+  stage.add(cubeBackground);
+
+  if(stage.getObjectById(sphere.id) != null)
+    stage.remove(sphere);
+  if(stage.getObjectById(noise.id) != null)
+    stage.remove(noise);
 }
 
 function initCube(){
@@ -172,9 +208,6 @@ function initCube(){
   cubeBackground = new THREE.Mesh(backgroundCubeGeometry, backgroundCubeMat);
   cubeBackground.position.z = -250;
   cubeBackground.lookAt(new THREE.Vector3(0, 0, 0));
-
-  stage.add(cube);
-  stage.add(cubeBackground);
 
   cube_theta = 0
   cube_phi = 0
@@ -327,7 +360,6 @@ function initSphere(){
 
     sphere = new THREE.Mesh(bufferGeom, bufferMat);
     sphere.position.z = -350;
-    stage.add(sphere);
 }
 
 function animateSphere(){

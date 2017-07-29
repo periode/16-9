@@ -30,6 +30,7 @@ function begin(index){
 
 	setShow(index);
 	initLights();
+	initText();
 	onWindowResize();
 	render();
 }
@@ -52,7 +53,6 @@ function setShow(index){
 }
 
 function initGeometry(){
-	initText();
 	initBackground();
  	initComet();
 	initWorld();

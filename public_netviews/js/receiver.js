@@ -32,6 +32,15 @@ socket.on('introduce', function(value){
 		case 'traces':
 			introduceTraces();
 			break;
+		case 'noise':
+			introduceNoise();
+			break;
+		case 'cube':
+			introduceCube();
+		break;
+		case 'sphere':
+			introduceSphere();
+			break;
 		default:
 			console.log('unexpected value for introduction');
 			break;
