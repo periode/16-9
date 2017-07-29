@@ -42,9 +42,14 @@ var cube_clap = false;
 var noise;
 
 function initShaders(){
-  initSphere();
-  initCube();
-  initNoise();
+  // if(vsSphere != null && fsSphere != null){
+  //   initSphere();
+  // }else{
+  //
+  // }
+  //
+  // initCube();
+  // initNoise();
 }
 
 function animateShader(){
@@ -58,9 +63,14 @@ function animateShader(){
     animateNoise();
 }
 
-var fsSphere, vsSphere;
-var fsCubeBackground, vsCubeBackground;
-var fsCube, vsCube;
+var fsSphere = null;
+var vsSphere = null;
+var fsCubeBackground = null;
+var vsCubeBackground = null;
+var fsCube = null
+var vsCube = null;
+var fsNoise = null;
+var vsNoise = null;
 
 function loadAllShaders(){
 	loadShader('sphere', 'vs');
@@ -101,6 +111,15 @@ function loadShader(file, type, variable){
           if(file == 'noise')
             fsNoise = result;
         }
+
+        if(vsSphere != null && fsSphere != null)
+          initSphere();
+
+        if(vsCube != null && fsCube != null && vsCubeBackground != null && fsCubeBackground != null)
+          initCube();
+
+        if(vsNoise != null && fsNoise != null)
+          initNoise();
 			},
 			fail: function(){
 				console.log("unable to load shader file: "+file+"."+type);

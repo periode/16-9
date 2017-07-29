@@ -34,7 +34,7 @@ function begin(index){
 	onWindowResize();
 	render();
 
-	document.getElementById('loading').innerText = '';
+	document.getElementById('loading').style.display = 'none';
 }
 
 function setShow(index){
@@ -46,7 +46,6 @@ function setShow(index){
 			break;
 		case 1:
 			initShaders();
-			//TODO delete all other geometry
 			break;
 		default:
 			console.log('unexpected index switching shaders:',index);
