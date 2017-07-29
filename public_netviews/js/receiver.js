@@ -8,16 +8,111 @@ socket.on('connect', function(){
 
 });
 
+var global_state;
+
 socket.on('audience-connect', function(state){
 	console.log('newly connected, updating to current state');
-	// begin(state.show);
-	begin(1);
+
+	global_state = state;
+	begin(state.show);
+
+	setTimeout(function(){updateState(state)}, 3000);
 });
+
+function updateState(state){
+
+	//clear-color
+	clearColor(state.clearColor);
+
+	//introduce
+	if(state.introduce.background)
+			introduceBackground();
+	if(state.introduce.comet)
+			introduceComet();
+	if(state.introduce.world)
+			introduceWorld();
+	if(state.introduce.traces)
+			introduceTraces();
+	if(state.introduce.noise)
+			introduceNoise();
+	if(state.introduce.cube)
+			introduceCube();
+	if(state.introduce.sphere)
+			introduceSphere();
+
+	//toggle
+	if(state.toggle.background)
+			toggleBackground();
+	if(state.toggle.comet)
+			toggleComet();
+	if(state.toggle.world)
+			toggleWorld();
+	if(state.toggle.traces)
+			toggleTraces();
+
+	//wireframe
+	if(state.wireframe.background)
+			toggleBackgroundWireframe();
+	if(state.wireframe.comet)
+			toggleCometWireframe();
+	if(state.wireframe.world)
+			toggleWorldWireframe();
+	if(state.wireframe.traces)
+			introduceTracesWireframe();
+
+	//text
+	if(state.toggleText.netviews)
+			toggleText('netviews');
+	if(state.toggleText.wuso)
+			toggleText('wuso');
+	if(state.toggleText.wosx)
+			toggleText('wosx');
+
+	//background
+	bg_scale_x = state.background.scale.x;
+	bg_scale_y = state.background.scale.y;
+	bg_oscillation_coeff = state.background.oscill;
+	bg_flip_toggle = state.background.flip;
+	if(state.background.reset)
+		resetBackgroundFlip();
+
+	//comet
+	comet_rotation_coeff = state.comet.rotation;
+	if(state.comet.distort.start)
+		tweenComet();
+	comet_distort_coeff = state.comet.distort.coeff;
+	comet_gravitation_coeff = state.comet.gravitation.coeff;
+	comet_gravitation_speed = state.comet.gravitation.speed;
+	comet_orbit_coeff_phi = state.comet.orbit.phi;
+	comet_orbit_coeff_theta = state.comet.orbit.theta;
+
+	//world
+	world_rotation_x_coeff = state.world.rotation.x;
+	world_rotation_y_coeff = state.world.rotation.y;
+	world_rotation_z_coeff = state.world.rotation.z;
+	if(state.world.geometry)
+		switchWorldGeometry();
+	if(state.world.spheredrop)
+		toggleSpheredrop();
+
+	//traces
+	traces_depth_coeff = state.traces.depth;
+	traces_oscill_step = state.traces.step;
+	traces_oscill_coeff_x = state.traces.oscill.coeff.x;
+	traces_oscill_coeff_y = state.traces.oscill.coeff.y;
+	traces_oscill_speed_y = state.traces.oscill.speed.y;
+	traces_oscill_speed_x = state.traces.oscill.speed.x;
+
+	//sphere
+
+	//noise
+
+	//cube
+}
 
 socket.on('set-show', function(index){
 	setShow(index);
 });
-
 socket.on('introduce', function(value){
 	switch(value){
 		case 'background':
@@ -46,7 +141,6 @@ socket.on('introduce', function(value){
 			break;
 	}
 });
-
 socket.on('toggle', function(value){
 	switch(value){
 		case 'background':
@@ -66,7 +160,6 @@ socket.on('toggle', function(value){
 			break;
 	}
 });
-
 socket.on('wireframe-toggle', function(value){
 	switch(value){
 		case 'background':
@@ -86,7 +179,6 @@ socket.on('wireframe-toggle', function(value){
 			break;
 	}
 });
-
 socket.on('fade-out', function(value){
 	switch(value){
 		case 'background':
@@ -106,7 +198,6 @@ socket.on('fade-out', function(value){
 			break;
 	}
 });
-
 socket.on('toggle-text', function(value){
 	toggleText(value);
 });
@@ -150,19 +241,19 @@ socket.on('comet-distort-start', function(value){
 	tweenComet();
 });
 socket.on('comet-distort-coeff', function(value){
-	comet_distort_coeff = value;
+	comet_distort_coeff = parseFloat(value);
 });
 socket.on('comet-gravitation-coeff', function(value){
-	comet_gravitation_coeff = value;
+	comet_gravitation_coeff = parseFloat(value);
 });
 socket.on('comet-gravitation-speed', function(value){
-	comet_gravitation_speed = value;
+	comet_gravitation_speed = parseFloat(value);
 });
 socket.on('comet-orbit-coeff', function(data){
 	if(data.angle == 'phi')
-		comet_orbit_coeff_phi = data.value;
+		comet_orbit_coeff_phi = parseFloat(data.value);
 	else
-		comet_orbit_coeff_theta = data.value;
+		comet_orbit_coeff_theta = parseFloat(data.value);
 });
 
 // -------------------------------------- WORLD
@@ -178,11 +269,9 @@ socket.on('world-rotation', function(data){
 	if(data.axis == 'z')
 		world_rotation_z_coeff =  data.value;
 });
-
 socket.on('world-geometry', function(data){
 	switchWorldGeometry();
 });
-
 socket.on('toggle-spheredrop', function(data){
 	toggleSpheredrop();
 })

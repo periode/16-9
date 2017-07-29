@@ -475,15 +475,15 @@ function getTargetVertices(){
 // CONTROLS
 var traces_oscill_speed_x = 0.8;
 var traces_oscill_coeff_x = 0.1;
-var traces_oscill_speed_z = 3.0;
-var traces_oscill_coeff_z = 0.1;
+var traces_oscill_speed_y = 3.0;
+var traces_oscill_coeff_y = 0.1;
 var traces_oscill_step = 0.1;
 var traces_depth_coeff = 1;
 
 function animateTraces(){
 	for(var i = 0; i < traces.length; i++){
 		var inc_x = Math.sin(i*traces_oscill_step+clock.getElapsedTime()*traces_oscill_speed_x)*traces_oscill_coeff_x;
-		var inc_y = Math.cos(i*traces_oscill_step+clock.getElapsedTime()*traces_oscill_speed_z)*traces_oscill_coeff_z;
+		var inc_y = Math.cos(i*traces_oscill_step+clock.getElapsedTime()*traces_oscill_speed_y)*traces_oscill_coeff_y;
 
 		traces[i].scale.x += inc_x;
 		traces[i].scale.y += inc_x;

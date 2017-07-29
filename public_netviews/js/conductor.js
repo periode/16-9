@@ -78,7 +78,7 @@ function resetBackgroundFlip(){
 // -------------------------------------- COMET
 
 function updateCometRotation(value){
-	socket.emit('comet-rotation', value);
+	socket.emit('comet-rotation', parseFloat(value));
 }
 
 function startCometDistort(){
@@ -86,19 +86,19 @@ function startCometDistort(){
 }
 
 function updateCometDistortCoeff(value){
-	socket.emit('comet-distort-coeff', value);
+	socket.emit('comet-distort-coeff', parseFloat(value));
 }
 
 function updateCometGravitationCoeff(value){
-	socket.emit('comet-gravitation-coeff', value);
+	socket.emit('comet-gravitation-coeff', parseFloat(value));
 }
 
 function updateCometGravitationSpeed(value){
-	socket.emit('comet-gravitation-speed', value);
+	socket.emit('comet-gravitation-speed', parseFloat(value));
 }
 
 function updateCometOrbitCoeff(_angle, _value){
-	socket.emit('comet-orbit-coeff', {angle:_angle, value:_value});
+	socket.emit('comet-orbit-coeff', {angle:_angle, value:parseFloat(_value)});
 }
 
 // -------------------------------------- WORLD

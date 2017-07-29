@@ -15,12 +15,12 @@ app.use(express.static('public_netviews'));
 // ---------------------- STATE
 var STATE = {
   show: 0,
-	clearColor: 0x000000,
+	clearColor: "black",
 	wireframe:{
-		"background": false,
-		"comet": false,
-		"world": false,
-		"traces": false,
+		background: false,
+		comet: false,
+		world: false,
+		traces: false,
 	},
 	introduce:{
 		"background": false,
@@ -47,10 +47,10 @@ var STATE = {
 	},
 	background:{
 		scale:{
-			x: 1,
-			y: 1
+			x: 0.01,
+			y: 0.01
 		},
-		oscill: 0,
+		oscill: 0.01,
 		flip : false,
 		reset: false
 	},
@@ -65,8 +65,8 @@ var STATE = {
 			speed: 0
 		},
 		orbit: {
-			phi: 0,
-			theta:0
+			phi: 1,
+			theta:2
 		}
 	},
 	world:{
@@ -79,16 +79,16 @@ var STATE = {
 		spheredrop: false
 	},
 	traces:{
-		depth: 0,
-		step: 0,
+		depth: 1,
+		step: 0.1,
 		oscill: {
 			coeff:{
-				x: 0,
-				y:0
+				x: 0.1,
+				y: 0.1
 			},
 			speed:{
-				x: 0,
-				y:0
+				x: 0.8,
+				y: 3
 			}
 		}
 	},
@@ -100,8 +100,8 @@ var STATE = {
 	},
 	cube: {
 		rotation: {
-			x: 0,
-			y: 0,
+			x: 0.00005,
+			y: 0.001,
 			z: 0
 		},
 		lines: {
@@ -113,25 +113,25 @@ var STATE = {
 	},
 	noise: {
 		interval:{
-			vertinterval: 0,
-			vertspeed: 0,
+			vertinterval: 50.0,
+			vertspeed: 0.01,
 			coeff: 0,
-			modulo: 0,
-			speed: 0
+			modulo: 100,
+			speed: 20
 		},
 		bloom:{
-			speed: 0,
-			intensity: 0,
+			speed: 0.001,
+			intensity: 0.00001,
 		},
 		tan: {
-			size: 0,
-			modulo: 0,
+			size: 0.1,
+			modulo: 20,
 		},
 		overlay:{
-			distance: 0,
-			size: 0,
-			speed: 0,
-			impact: 0
+			distance: 6.0,
+			size: 0.005,
+			speed: 0.0001,
+			impact: 1
 		}
 	},
 	her: "salber"
@@ -157,15 +157,15 @@ io.sockets.on('connection', function(socket){
 		socket.broadcast.emit('set-show', data);
 	});
 	socket.on('wireframe-toggle', function(data) {
-		STATE[data] = true;
+		STATE.wireframe[data] = true;
 		socket.broadcast.emit('wireframe-toggle', data);
 	});
 	socket.on('clear-color', function(data) {
-		STATE.clearColor = true;
+		STATE.clearColor = data;
 		socket.broadcast.emit('clear-color', data);
 	});
 	socket.on('introduce', function(data){
-		STATE.introduce[data.value] = true;
+		STATE.introduce[data] = true;
 		socket.broadcast.emit('introduce', data);
 	});
 	socket.on('toggle', function(data){
@@ -217,10 +217,10 @@ io.sockets.on('connection', function(socket){
 		STATE.comet.gravitation.coeff = data;
 		socket.broadcast.emit('comet-gravitation-coeff', data);	});
 	socket.on('comet-gravitation-speed', function(data) {
-		STATE.comet.gravitation.speed = value;
+		STATE.comet.gravitation.speed = data;
 		socket.broadcast.emit('comet-gravitation-speed', data);	});
 	socket.on('comet-orbit-coeff', function(data) {
-		STATE.comet.gravitation[data.property] = data.value;
+		STATE.comet.orbit[data.angle] = data.value;
 		socket.broadcast.emit('comet-orbit-coeff', data);	});
 
 
