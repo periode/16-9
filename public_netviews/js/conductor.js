@@ -1,7 +1,7 @@
 const SOCKET_SERVER_URL = "104.236.239.60:4783";
 const SOCKET_LOCALHOST = "localhost:4783";
 
-const socket = io(SOCKET_LOCALHOST);
+const socket = io(SOCKET_SERVER_URL);
 
 socket.on('connect', function(){
 	console.log('socket connection established to', SOCKET_SERVER_URL);
