@@ -173,15 +173,15 @@
 			<hr />
 			<button onclick="introduce('noise')">start</button>
 			<li>
-				vertical interval: <input id="slide" type="range" min="0.001" max="16" step="0.01" value="2" onchange="updateNoiseInterval('step', this.value)" /> 2<br>
-				vertical speed: <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.5" onchange="updateNoiseInterval('vertspeed', this.value)" /> 0.5<br>
-				interval coeff: <input id="slide" type="range" min="0.00001" max="0.1" step="0.0001" value="0.001" onchange="updateNoiseInterval('coeff', this.value)" /> 0.01<br>
-				interval modulo: <input id="slide" type="range" min="0.001" max="300" step="1" value="10" onchange="updateNoiseInterval('modulo', this.value)" /> 10<br>
+				vertical interval: <input id="slide" type="range" min="1" max="50" step="0.01" value="50" onchange="updateNoiseInterval('step', this.value)" /> 50<br>
+				vertical speed: <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.01" onchange="updateNoiseInterval('vertspeed', this.value)" /> 0.01<br>
+				interval coeff: <input id="slide" type="range" min="0" max="100" step="1" value="0" onchange="updateNoiseInterval('coeff', this.value)" /> 0<br>
+				interval modulo: <input id="slide" type="range" min="0.001" max="200" step="1" value="100" onchange="updateNoiseInterval('modulo', this.value)" /> 100<br>
 				interval speed: <input id="slide" type="range" min="0.001" max="100" step="0.1" value="20" onchange="updateNoiseInterval('speed', this.value)" /> 20<br>
 			</li>
 			<li>
 				bloom speed: <input id="slide" type="range" min="0.00001" max="0.01" step="0.00001" value="0.001" onchange="updateNoiseBloom('speed', this.value)" /> 0.001<br>
-				bloom intensity: <input id="slide" type="range" min="0.00000001" max="0.0001" step="0.000001" value="0.000001" onchange="updateNoiseBloom('intensity', this.value)" /> 0.000001<br>
+				bloom intensity: <input id="slide" type="range" min="0.00001" max="0.01" step="0.00001" value="0.00001" onchange="updateNoiseBloom('intensity', this.value)" /> 0.000001<br>
 			</li>
 			<li>
 				tan size: <input id="slide" type="range" min="0.001" max="1" step="0.001" value="0.1" onchange="updateNoiseTan('size', this.value)" /> 0.1<br>
@@ -189,9 +189,9 @@
 			</li>
 			<li>
 				noise distance: <input id="slide" type="range" min="0.001" max="10000" step="0.0001" value="6000" onchange="updateNoiseOverlay('distance', this.value)" /> 6000-0.001<br>
-				noise size: <input id="slide" type="range" min="0.000001" max="1" step="0.000001" value="1" onchange="updateNoiseOverlay('size', this.value)" /> 0.00001<br>
+				noise size: <input id="slide" type="range" min="0.0001" max="1" step="0.000001" value="0.05" onchange="updateNoiseOverlay('size', this.value)" /> 0.05<br>
 				noise speed: <input id="slide" type="range" min="0.001" max="10" step="0.001" value="0.5" onchange="updateNoiseOverlay('speed', this.value)" /> 0.5<br>
-				noise impact: <input id="slide" type="range" min="0.0001" max="0.01" step="0.00001" value="0.0001" onchange="updateNoiseOverlay('impact', this.value)" /> 0.00001<br>
+				noise impact: <input id="slide" type="range" min="0.0001" max="1." step="0.00001" value="0.001" onchange="updateNoiseOverlay('impact', this.value)" /> 0.00001<br>
 			</li>
 			<h3 class="section">OUTRO</h3>
 		</div>

@@ -115,19 +115,19 @@ function initNoise(){
   var noiseMat = new THREE.RawShaderMaterial({
     uniforms: {
       uTime:{type: 'f', value: 0.0},
-      uVerticalInterval:{type: 'f', value: 2.0},
-      uVerticalSpeed:{type: 'f', value: 0.5},
-      uIntervalCoeff:{type: 'f', value: 0.001},
-      uIntervalModulo:{type: 'f', value: 20.0},
+      uVerticalInterval:{type: 'f', value: 50.0},
+      uVerticalSpeed:{type: 'f', value: 0.01},
+      uIntervalCoeff:{type: 'f', value: 0},
+      uIntervalModulo:{type: 'f', value: 100.0},
       uIntervalSpeed:{type: 'f', value: 20.0},
       uBloomSpeed:{type: 'f', value: 0.001},
-      uBloomIntensity:{type: 'f', value: 0.000001},
+      uBloomIntensity:{type: 'f', value: 0.00001},
       uTanSquaresSize:{type: 'f', value: 0.1},
-      uTanSquareModulo:{type: 'f', value: 99.},
-      uNoiseDist:{type: 'f', value: 60000.0},
-      uNoiseSize:{type: 'f', value: 0.5},
+      uTanSquareModulo:{type: 'f', value: 20.},
+      uNoiseDist:{type: 'f', value: 6.0},
+      uNoiseSize:{type: 'f', value: 0.005},
       uNoiseSpeed:{type: 'f', value: 0.0001},
-      uNoiseImpact:{type: 'f', value: 100.0}
+      uNoiseImpact:{type: 'f', value: 1}
     },
     vertexShader: vsNoise,
     fragmentShader: fsNoise
