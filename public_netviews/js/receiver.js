@@ -16,7 +16,7 @@ socket.on('audience-connect', function(state){
 	global_state = state;
 	begin(state.show);
 
-	setTimeout(function(){updateState(state)}, 3000);
+	setTimeout(function(){updateState(state)}, 5000);
 });
 
 function updateState(state){

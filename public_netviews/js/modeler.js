@@ -33,6 +33,8 @@ function begin(index){
 	initText();
 	onWindowResize();
 	render();
+
+	document.getElementById('loading').innerText = '';
 }
 
 function setShow(index){
@@ -107,6 +109,10 @@ function initText(){
 		stage.add(text_wuso);
 		text_wuso.material.visible = false;
 	});
+}
+
+function animateText(){
+	text_netviews.position.z += Math.sin(clock.getElapsedTime())*0.1;
 }
 
 function toggleText(text){
@@ -555,6 +561,9 @@ function onWindowResize(){
 }
 
 function animateGeometry(){
+	if(text_netviews != null && text_netviews.material.visible)
+		animateText();
+
 	if(stage.getObjectById(comet.id) != null)
     animateComet();
 
