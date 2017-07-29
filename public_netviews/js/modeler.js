@@ -272,6 +272,29 @@ function initTraces(){
 	}
 }
 
+function removeActor(actor){
+	if(actor == 'background'){
+		if(stage.getObjectById(background[0].id) != null){
+			for(var i = 0; i < background.length; i++){
+				stage.remove(background[i]);
+			}
+		}
+	}
+
+	if(actor == 'comet')
+		if(stage.getObjectById(comet.id) != null) stage.remove(comet);
+
+	if(actor == 'world')
+		if(stage.getObjectById(world.id) != null) stage.remove(world);
+
+	if(actor == 'traces'){
+		if(stage.getObjectById(traces[0].id) != null){
+			for(var i = 0; i < traces.length; i++){
+				stage.remove(traces[i]);
+			}
+		}
+	}
+}
 function introduceTraces(){
 	for(var i = 0; i < traces.length; i++){
 		stage.add(traces[i]);
@@ -531,15 +554,26 @@ function onWindowResize(){
 	renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+function animateGeometry(){
+	if(stage.getObjectById(comet.id) != null)
+    animateComet();
+
+  if(stage.getObjectById(background[0].id) != null)
+    animateBackground();
+
+  if(stage.getObjectById(world.id) != null)
+    animateWorld();
+
+	if(stage.getObjectById(traces[0].id) != null)
+    animateTraces();
+}
+
 var render = function(){
 	requestAnimationFrame(render);
 
 	switch(show){
 		case 0:
-			animateComet();
-			animateBackground();
-			animateWorld();
-			animateTraces();
+			animateGeometry();
 			break;
 		case 1:
 			animateShader();

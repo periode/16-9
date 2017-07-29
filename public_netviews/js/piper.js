@@ -219,12 +219,13 @@ var cube_rot_z = 0;
 
 var cube_rot = new THREE.Vector3(0.00005, 0.02, 0);
 function animateCube(){
+  cube_time += clock.getElapsedTime();
   cube.rotation.x += cube_rot.x;
   cube.rotation.y += cube_rot.y;
   cube.rotation.z += cube_rot.z;
 
-  cubeBackground.material.uniforms.uTime.value = clock.getElapsedTime();
-  cube.material.uniforms.uTime.value = clock.getElapsedTime();
+  cubeBackground.material.uniforms.uTime.value = cube_time;
+  cube.material.uniforms.uTime.value = cube_time;
 
   cube_step += (cube_step_thresh - cube_step) * .1
   cubeBackground.material.uniforms.uStep.value = cube_step;

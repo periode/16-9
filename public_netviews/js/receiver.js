@@ -176,6 +176,9 @@ socket.on('introduce', function(value){
 			break;
 	}
 });
+socket.on('remove-actor', function(data){
+	removeActor(data);
+});
 socket.on('toggle', function(value){
 	switch(value){
 		case 'background':

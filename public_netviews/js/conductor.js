@@ -27,6 +27,10 @@ function introduce(actor){
 	socket.emit('introduce', actor);
 }
 
+function remove(actor){
+	socket.emit('remove-actor', actor);
+}
+
 function toggle(actor){
 	socket.emit('toggle', actor);
 }

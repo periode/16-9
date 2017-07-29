@@ -168,6 +168,10 @@ io.sockets.on('connection', function(socket){
 		STATE.introduce[data] = true;
 		socket.broadcast.emit('introduce', data);
 	});
+	socket.on('remove-actor', function(data){
+		STATE.introduce[data] = false;
+		socket.broadcast.emit('remove-actor', data);
+	});
 	socket.on('toggle', function(data){
 		STATE.toggle[data] = !STATE.toggle[data];
 		socket.broadcast.emit('toggle', data);
