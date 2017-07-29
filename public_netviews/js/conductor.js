@@ -53,14 +53,17 @@ function fadeIn(actor){
 // -------------------------------------- BACKGROUND
 
 function updateBgScaleX(val){
+	document.getElementById('label_bgscalex').innerText = val;
 	socket.emit('bg-scale-x', val);
 }
 
 function updateBgScaleY(val){
+	document.getElementById('label_bgscaley').innerText = val;
 	socket.emit('bg-scale-y', val);
 }
 
 function updateBgOscillCoeff(val){
+	document.getElementById('label_bgoscill').innerText = val;
 	socket.emit('bg-oscill-coeff', val);
 }
 
@@ -82,6 +85,7 @@ function resetBackgroundFlip(){
 // -------------------------------------- COMET
 
 function updateCometRotation(value){
+	document.getElementById('label_cometrot').innerText = value;
 	socket.emit('comet-rotation', parseFloat(value));
 }
 
@@ -90,18 +94,23 @@ function startCometDistort(){
 }
 
 function updateCometDistortCoeff(value){
+	document.getElementById('label_cometdistort').innerText = value;
 	socket.emit('comet-distort-coeff', parseFloat(value));
 }
 
 function updateCometGravitationCoeff(value){
+	document.getElementById('label_cometgravcoeff').innerText = value;
 	socket.emit('comet-gravitation-coeff', parseFloat(value));
 }
 
 function updateCometGravitationSpeed(value){
+	document.getElementById('label_cometgravspeed').innerText = value;
 	socket.emit('comet-gravitation-speed', parseFloat(value));
 }
 
 function updateCometOrbitCoeff(_angle, _value){
+	if(_angle == 'phi')document.getElementById('label_cometorbitcoeff').innerText = _value;
+	if(_angle == 'theta')document.getElementById('label_cometorbitspeed').innerText = _value;
 	socket.emit('comet-orbit-coeff', {angle:_angle, value:parseFloat(_value)});
 }
 
@@ -111,6 +120,9 @@ function updateCometOrbitCoeff(_angle, _value){
 // -------------------------------------- WORLD
 
 function updateWorldRotation(_axis, _value){
+	if(_axis == 'x')document.getElementById('label_worldx').innerText = _value;
+	if(_axis == 'y')document.getElementById('label_worldy').innerText = _value;
+	if(_axis == 'z')document.getElementById('label_worldz').innerText = _value;
 	socket.emit('world-rotation', {axis:_axis, value:_value});
 }
 
@@ -128,6 +140,10 @@ function toggleSpheredrop(){
 // -------------------------------------- TRACES
 
 function updateTracesOscill(_axis, _type, _value){
+	if(_axis == 'x' && _type == 'speed')document.getElementById('label_tracesoscillxspeed').innerText = _value;
+	if(_axis == 'y'  && _type == 'speed')document.getElementById('label_tracesoscillyspeed').innerText = _value;
+	if(_axis == 'x' && _type == 'coeff')document.getElementById('label_tracesoscillxcoeff').innerText = _value;
+	if(_axis == 'y'  && _type == 'coeff')document.getElementById('label_tracesoscillycoeff').innerText = _value;
 	socket.emit('traces-oscill', {axis: _axis, type: _type, value:_value});
 }
 
@@ -166,9 +182,14 @@ function changeSphereMode(mode){
 // -------------------------------------- CUBE
 
 function updateCubeRotation(axis, value){
+	if(axis == 'x')document.getElementById('label_cuberotx').innerText = value;
+	if(axis == 'y')document.getElementById('label_cuberoty').innerText = value;
+	if(axis == 'z')document.getElementById('label_cuberotz').innerText = value;
 	socket.emit('cube-rotation', {axis: axis, value: value});
 }
 function updateBackgroundCubeLines(property, value){
+	if(property == 'down')document.getElementById('label_cubedown').innerText = value;
+	if(property == 'interval')document.getElementById('label_cubeinterval').innerText = value;
 	socket.emit('cube-background-lines', {property: property, value: value});
 }
 function toggleCubeClap(){
@@ -184,14 +205,27 @@ function invertCube(){
 // -------------------------------------- NOISE
 
 function updateNoiseInterval(property, value){
+	if(property == 'vertinterval')document.getElementById('label_noisevertinterval').innerText = value;
+	if(property == 'vertspeed')document.getElementById('label_noisevertspeed').innerText = value;
+	if(property == 'coeff')document.getElementById('label_noiseintervalcoeff').innerText = value;
+	if(property == 'modulo')document.getElementById('label_noiseintervalmodulo').innerText = value;
+	if(property == 'speed')document.getElementById('label_noiseintervalspeed').innerText = value;
 	socket.emit('noise-interval', {property: property, value: value});
 }
 function updateNoiseBloom(property, value){
+	if(property == 'speed')document.getElementById('label_noisebloomspeed').innerText = value;
+	if(property == 'intensity')document.getElementById('label_noisebloomintensity').innerText = value;
 	socket.emit('noise-bloom', {property: property, value: value});
 }
 function updateNoiseTan(property, value){
+	if(property == 'size')document.getElementById('label_noisetansize').innerText = value;
+	if(property == 'modulo')document.getElementById('label_noisetanmodulo').innerText = value;
 	socket.emit('noise-tan', {property: property, value: value});
 }
 function updateNoiseOverlay(property, value){
+	if(property == 'distance')document.getElementById('label_noisedistance').innerText = value;
+	if(property == 'size')document.getElementById('label_noisesize').innerText = value;
+	if(property == 'speed')document.getElementById('label_noisespeed').innerText = value;
+	if(property == 'impact')document.getElementById('label_noiseimpact').innerText = value;
 	socket.emit('noise-overlay', {property: property, value: value});
 }

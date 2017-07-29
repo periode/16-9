@@ -9,106 +9,107 @@
 	</head>
 	<body>
 		<h1>16:9 CONDUCTOR</h1>
-		<button onclick="toggleText('netviews')">text netviews</button>
+		<button class="introduce" onclick="toggleText('netviews')">text netviews</button>
 		<div id="left" class="container">
 			<h2 class="show">w u s o 命</h2>
-			<button onclick="setShow(0)">start wuso</button><button onclick="toggleText('wuso')">text wuso</button>
+			<button class='important introduce' onclick="setShow(0)">start wuso</button><button onclick="toggleText('wuso')">text wuso</button>
 			<hr />
 			<h3 class="section">BACKGROUND</h3>
-			<button onclick="introduce('background')">start</button><br />
+			<button class='introduce' onclick="introduce('background')">BACKGROUND</button><br />
 			<button onclick="remove('background')">remove</button><br />
-			<input type="checkbox" onchange="toggle('background')" checked>toggle visible</button>
 			<ul>
 				<li>
-					height: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgScaleY(this.value)" /> 0<br>
+					visible | <input class="checkbox" type="checkbox" onchange="toggle('background')" checked>
 				</li>
 				<li>
-					width: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgScaleX(this.value)" /> 0<br>
+					height: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgScaleY(this.value)" /> | 0 - 2 | <span id="label_bgscaley">0</span><br>
 				</li>
 				<li>
-					oscill: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgOscillCoeff(this.value)" /> 1<br>
+					width: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgScaleX(this.value)" /> | 0 - 2 | <span id="label_bgscalex">0</span><br>
 				</li>
 				<li>
-					flip: <input type="checkbox" value="0" onchange="toggleBgFlip()" /><br>
+					oscill: <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateBgOscillCoeff(this.value)" /> | 0 - 2 | <span id="label_bgoscill">0</span><br>
 				</li>
 				<li>
-					reset flip: <button onclick="resetBackgroundFlip()">reset rotation</button>
+					flip: <input class="checkbox" type="checkbox" value="0" onchange="toggleBgFlip()" /><br>
+					<button onclick="resetBackgroundFlip()">reset flip</button>
 				</li>
 				<li>
-					wireframe<input type="checkbox" value="0" onchange="toggleWireframe('background')" /><br>
+					wireframe<input class="checkbox" type="checkbox" value="0" onchange="toggleWireframe('background')" /><br>
 				</li>
 			</ul>
 			<hr />
 			<h3 class="section">COMET</h3>
-			<button onclick="introduce('comet')">start</button><br />
+			<button class='introduce' onclick="introduce('comet')">COMET</button><br />
 			<button onclick="remove('comet')">remove</button><br />
-			<input type="checkbox" onchange="toggle('comet')" checked>toggle visible</button>
 			<ul>
 				<li>
-					wireframe<input type="checkbox" value="0" onchange="toggleWireframe('comet')" /><br>
+					visible | <input class="checkbox" type="checkbox" onchange="toggle('comet')" checked>
 				</li>
 				<li>
-					rotation <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateCometRotation(this.value)" /> 1<br>
+					wireframe<input class="checkbox" type="checkbox" value="0" onchange="toggleWireframe('comet')" /><br>
 				</li>
 				<li>
-					distortion start <button onclick="startCometDistort()"> start distort</button><br>
+					rotation <input id="slide" type="range" min="0" max="2" step="0.01" value="0" onchange="updateCometRotation(this.value)" /> | 0 - 2 | <span id="label_cometrot">0</span><br>
 				</li>
 				<li>
-					distortion amount <input id="slide" type="range" min="0" max="20" step="0.01" value="0.5" onchange="updateCometDistortCoeff(this.value)" /> 0.5<br>
+					<button onclick="startCometDistort()"> start distort</button><br>
+					amount <input id="slide" type="range" min="0" max="20" step="0.01" value="0.5" onchange="updateCometDistortCoeff(this.value)" /> | 0 - 20 | <span id="label_cometdistort">0.5</span><br>
 				</li>
 				<li>
-					gravitation coeff <input id="slide" type="range" min="0" max="50" step="0.01" value="0" onchange="updateCometGravitationCoeff(this.value)" /> 1<br>
+					gravitation coeff <input id="slide" type="range" min="0" max="50" step="0.01" value="0" onchange="updateCometGravitationCoeff(this.value)" /> | 0 - 50 | <span id="label_cometgravcoeff">0</span><br>
+					gravitation speed <input id="slide" type="range" min="0" max="3" step="0.001" value="0" onchange="updateCometGravitationSpeed(this.value)" /> | 0 - 3 | <span id="label_cometgravspeed">0</span><br>
 				</li>
 				<li>
-					gravitation speed <input id="slide" type="range" min="0" max="3" step="0.001" value="0" onchange="updateCometGravitationSpeed(this.value)" /> 1<br>
-				</li>
-				<li>
-					orbit coeff y <input id="slide" type="range" min="0" max="16" step="0.001" value="1" onchange="updateCometOrbitCoeff('phi', this.value)" /> 1<br>
-					orbit speed y <input id="slide" type="range" min="0" max="4" step="0.001" value="1" onchange="updateCometOrbitCoeff('theta', this.value)" /> 1<br>
+					orbit coeff <input id="slide" type="range" min="0" max="16" step="0.001" value="1" onchange="updateCometOrbitCoeff('phi', this.value)" /> | 0 - 16 | <span id="label_cometorbitcoeff">1</span><br>
+					orbit speed <input id="slide" type="range" min="0" max="4" step="0.001" value="1" onchange="updateCometOrbitCoeff('theta', this.value)" />  | 0 - 4 | <span id="label_cometorbitspeed">1</span><br>
 				</li>
 			</ul>
 			<hr />
 			<h3 class="section">WORLD</h3>
-			<button onclick="introduce('world')">start</button><br />
+			<button class='introduce' onclick="introduce('world')">introduce</button><br />
 			<button onclick="remove('world')">remove</button><br />
-			<input type="checkbox" onchange="toggle('world')" checked>toggle visible</button>
 			<ul>
 				<li>
-					wireframe<input type="checkbox" value="0" onchange="toggleWireframe('world')" /> off<br>
+					visible | <input class="checkbox" type="checkbox" onchange="toggle('world')" checked>
+				</li>
+				<li>
+					wireframe<input class="checkbox" type="checkbox" value="0" onchange="toggleWireframe('world')" /><br>
 				</li>
 				<li>
 					<button onclick="switchWorldGeometry()">switch geometry</button>
 				</li>
 				<li>
-					<button onclick="toggleSpheredrop()">toggle spheredrop</button>
+					<button onclick="toggleSpheredrop()">spheredrop</button>
 				</li>
 				<li>
-					rotation coeff x: <input id="slide" type="range" min="0" max="8" step="1" value="0" onchange="updateWorldRotation('x', this.value)" /> 0<br>
-					rotation coeff y: <input id="slide" type="range" min="0" max="8" step="1" value="0" onchange="updateWorldRotation('y', this.value)" /> 0<br>
-					rotation coeff z: <input id="slide" type="range" min="0" max="8" step="1" value="0" onchange="updateWorldRotation('z', this.value)" /> 0<br>
+					rotation x: <input id="slide" type="range" min="0" max="8" step="1" value="0" onchange="updateWorldRotation('x', this.value)" /> | 0 - 8 | <span id="label_worldx">0</span><br>
+					rotation y: <input id="slide" type="range" min="0" max="8" step="1" value="0" onchange="updateWorldRotation('y', this.value)" /> | 0 - 8 | <span id="label_worldy">0</span><br>
+					rotation z: <input id="slide" type="range" min="0" max="8" step="1" value="0" onchange="updateWorldRotation('z', this.value)" /> | 0 - 8 | <span id="label_worldz">0</span><br>
 				</li>
 			</ul>
 			<hr />
 			<h3 class="section">TRACES</h3>
-			<button onclick="introduce('traces')">start</button>
+			<button class='introduce' onclick="introduce('traces')">introduce</button>
 			<button onclick="remove('traces')">remove</button><br />
 			<br />
-			<input type="checkbox" onchange="toggle('traces')" checked>toggle visible</button>
 			<ul>
 				<li>
-					step coeff<input id="slide" type="range" min="0.05" max="0.15" step="0.001" value="0.1" onchange="updateTracesStep(this.value)" /> 0<br>
+					visible | <input class="checkbox" type="checkbox" onchange="toggle('traces')" checked>
 				</li>
 				<li>
-					depth coeff<input id="slide" type="range" min="0.001" max="1" step="0.001" value="0.001" onchange="updateTracesDepth(this.value)" /> 0<br>
+					step | <input id="slide" type="range" min="0.05" max="0.15" step="0.001" value="0.1" onchange="updateTracesStep(this.value)" /> | 0.05 - 0.15 | <span id="label_tracesstep">0.1</span><br>
 				</li>
 				<li>
-					X speed: <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.8" onchange="updateTracesOscill('x', 'speed', this.value)" /> 0<br>
-					X coeff: <input id="slide" type="range" min="0.05" max="0.3" step="0.01" value="0.1" onchange="updateTracesOscill('x', 'coeff', this.value)" /> 0<br>
-					Y speed: <input id="slide" type="range" min="0.001" max="4" step="0.01" value="3" onchange="updateTracesOscill('y', 'speed', this.value)" /> 0<br>
-					Y coeff: <input id="slide" type="range" min="0.1" max="0.3" step="0.01" value="0.1" onchange="updateTracesOscill('y', 'coeff', this.value)" /> 0<br>
+					depth | <input id="slide" type="range" min="0.001" max="1" step="0.001" value="0.001" onchange="updateTracesDepth(this.value)" /> | 0.001 - 1.0 | <span id="label_tracesdepth">0.001</span><br>
 				</li>
 				<li>
-					limit the number of colors, until just changing to monochrome
+					speed X: <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.8" onchange="updateTracesOscill('x', 'speed', this.value)" /> | 0.001 - 1.0 | <span id="label_tracesoscillxspeed">0.8</span><br>
+					speed Y: <input id="slide" type="range" min="0.001" max="4" step="0.01" value="3" onchange="updateTracesOscill('y', 'speed', this.value)" /> | 0.001 - 4.0 | <span id="label_tracesoscillyspeed">3.0</span><br>
+				</li>
+				<li>
+					coeff X: <input id="slide" type="range" min="0.05" max="0.3" step="0.01" value="0.1" onchange="updateTracesOscill('x', 'coeff', this.value)" /> | 0.05 - 0.3 | <span id="label_tracesoscillxcoeff">0.1</span><br>
+					coeff Y: <input id="slide" type="range" min="0.1" max="0.3" step="0.01" value="0.1" onchange="updateTracesOscill('y', 'coeff', this.value)" /> | 0.1 - 0.3 | <span id="label_tracesoscillycoeff">0.1</span><br>
 				</li>
 				<li>
 					<button onclick="fadeOut('traces')">fade out</button>
@@ -117,12 +118,8 @@
 			<hr />
 			<h3 class="section">CLEAR COLOR</h3>
 			<ul>
-
 					<button onclick="setClearcolor('black')">black</button>
-
-
-					<button onclick="setClearcolor('random')">random</button>
-
+					<button class="important" onclick="setClearcolor('random')">random</button>
 			</ul>
 		</div>
 
@@ -132,76 +129,81 @@
 		<div id="right" class="container">
 			<h2 class="show">WosX</h2>
 
-			<button onclick="setShow(1)">start wosx</button><button onclick="toggleText('wosx')">text wosx</button>
+			<button class='important introduce' onclick="setShow(1)">start wosx</button><button onclick="toggleText('wosx')">text wosx</button>
 			<hr />
 			<h3 class="section">CUBE</h3>
-			<button onclick="introduce('cube')">start</button>
+			<button class='introduce' onclick="introduce('cube')">introduce</button>
 			<ul>
 				<li>
-					rotation x <input id="slide" type="range" min="0.00001" max="0.1" step="0.00001" value="0.0001" onchange="updateCubeRotation('x', this.value)" /> 0<br>
-					rotation y <input id="slide" type="range" min="0.00001" max="0.1" step="0.00001" value="0.2" onchange="updateCubeRotation('y', this.value)" /> 0<br>
-					rotation z <input id="slide" type="range" min="0.00001" max="0.1" step="0.00001" value="0.001" onchange="updateCubeRotation('z', this.value)" /> 0<br>
+					rotation x <input id="slide" type="range" min="0.00001" max="0.1" step="0.00001" value="0.0001" onchange="updateCubeRotation('x', this.value)" /> | 0.00001 - 0.1 | <span id="label_cuberotx">0.0001</span><br>
+					rotation y <input id="slide" type="range" min="0.00001" max="0.1" step="0.00001" value="0.2" onchange="updateCubeRotation('y', this.value)" /> | 0.00001 - 0.1 | <span id="label_cuberoty">0.2</span><br>
+					rotation z <input id="slide" type="range" min="0.00001" max="0.1" step="0.00001" value="0.001" onchange="updateCubeRotation('z', this.value)" /> | 0.00001 - 0.1 | <span id="label_cuberotz">0.001</span><br>
 					<button onclick="updateCubeRotation('r', 0)">reset rotation</button>
 				</li>
 				<li>
-					cube clap <button onclick="toggleCubeClap()">toggle</button>
+					<button onclick="toggleCubeClap()">clap</button>
 				</li>
 				<li>
-					cube invert <button onclick="invertCube()"> toggle</button>
+					<button onclick="invertCube()">invert</button>
 				</li>
 				<li>
-					background lines speed down: <input id="slide" type="range" min="0.001" max="100" step="0.01" value="0.8" onchange="updateBackgroundCubeLines('down', this.value)" /> 0<br>
-					background lines speed interval: <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.8" onchange="updateBackgroundCubeLines('interval', this.value)" /> 0<br>
+					lines speed down: <input id="slide" type="range" min="0.001" max="100" step="0.01" value="0.8" onchange="updateBackgroundCubeLines('down', this.value)" /> | 0.001 - 100.0 | <span id="label_cubedown">0.8</span><br>
+					lines speed interval: <input id="slide" type="range" min="0.001" max="2" step="0.01" value="0.8" onchange="updateBackgroundCubeLines('interval', this.value)" /> | 0.001 - 2.0 | <span id="label_cubeinterval">0.8</span><br>
 				</li>
 			</ul>
 			<hr />
 			<h3 class="section">SPHERE</h3>
-			<button onclick="introduce('sphere')">start</button>
+			<button class='introduce' onclick="introduce('sphere')">introduce</button>
 			<ul>
 				<li>
-					explosion position <button onclick="moveExplosionPosition()">move</button>
+					<button onclick="moveExplosionPosition()">move explosion</button>
 				</li>
 				<li>
-					explosion radius <button onclick="changeExplosionRadius(-1)">decrease</button><br />
-					explosion radius <button onclick="changeExplosionRadius(0)">random</button><br />
-					explosion radius <button onclick="changeExplosionRadius(1)">increase</button>
+					explosion radius<br />
+					 <button onclick="changeExplosionRadius(-1)">decrease</button><br />
+					 <button onclick="changeExplosionRadius(0)">random</button><br />
+					 <button onclick="changeExplosionRadius(1)">increase</button>
 				</li>
 				<li>
-					angle decrease <button onclick="changeAngleStep(-1)">decrease</button>
-					angle increase <button onclick="changeAngleStep(1)">increase</button>
+					angle <br />
+					<button onclick="changeAngleStep(-1)">decrease</button>
+					<button onclick="changeAngleStep(1)">increase</button>
 				</li>
 				<li>
-					mode toggle <button onclick="changeSphereMode(1)">1</button>
-					mode toggle <button onclick="changeSphereMode(2)">2</button>
-					mode toggle <button onclick="changeSphereMode(3)">3</button>
+					mode <br />
+					<button onclick="changeSphereMode(1)">1</button><button onclick="changeSphereMode(2)">2</button><button onclick="changeSphereMode(3)">3</button>
 				</li>
 			</ul>
 			<hr />
 			<h3 class="section">NOISE</h3>
 			<hr />
-			<button onclick="introduce('noise')">start</button>
-			<li>
-				vertical interval: <input id="slide" type="range" min="1" max="50" step="0.01" value="50" onchange="updateNoiseInterval('vertinterval', this.value)" /> 50<br>
-				vertical speed: <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.01" onchange="updateNoiseInterval('vertspeed', this.value)" /> 0.01<br>
-				interval coeff: <input id="slide" type="range" min="0" max="100" step="1" value="0" onchange="updateNoiseInterval('coeff', this.value)" /> 0<br>
-				interval modulo: <input id="slide" type="range" min="0.001" max="200" step="1" value="100" onchange="updateNoiseInterval('modulo', this.value)" /> 100<br>
-				interval speed: <input id="slide" type="range" min="0.001" max="100" step="0.1" value="20" onchange="updateNoiseInterval('speed', this.value)" /> 20<br>
-			</li>
-			<li>
-				bloom speed: <input id="slide" type="range" min="0.00001" max="0.01" step="0.00001" value="0.001" onchange="updateNoiseBloom('speed', this.value)" /> 0.001<br>
-				bloom intensity: <input id="slide" type="range" min="0.00001" max="0.01" step="0.00001" value="0.00001" onchange="updateNoiseBloom('intensity', this.value)" /> 0.000001<br>
-			</li>
-			<li>
-				tan size: <input id="slide" type="range" min="0.001" max="1" step="0.001" value="0.1" onchange="updateNoiseTan('size', this.value)" /> 0.1<br>
-				tan modulo: <input id="slide" type="range" min="1" max="1000" step="1" value="99." onchange="updateNoiseTan('modulo', this.value)" /> 99<br>
-			</li>
-			<li>
-				noise distance: <input id="slide" type="range" min="0.001" max="10000" step="0.0001" value="6000" onchange="updateNoiseOverlay('distance', this.value)" /> 6000-0.001<br>
-				noise size: <input id="slide" type="range" min="0.0001" max="1" step="0.000001" value="0.05" onchange="updateNoiseOverlay('size', this.value)" /> 0.05<br>
-				noise speed: <input id="slide" type="range" min="0.001" max="1" step="0.001" value="0.5" onchange="updateNoiseOverlay('speed', this.value)" /> 0.5<br>
-				noise impact: <input id="slide" type="range" min="0.0001" max="1." step="0.00001" value="0.001" onchange="updateNoiseOverlay('impact', this.value)" /> 0.00001<br>
-			</li>
-			<h3 class="section">OUTRO</h3>
+			<button class='introduce' onclick="introduce('noise')">introduce</button>
+			<ul>
+				<li>
+					vertinterval | <input id="slide" type="range" min="1" max="50" step="0.01" value="50" onchange="updateNoiseInterval('vertinterval', this.value)" /> | 1.0 - 50.0 | <span id="label_noisevertinterval">50</span><br>
+					vertspeed | <input id="slide" type="range" min="0.001" max="1" step="0.01" value="0.01" onchange="updateNoiseInterval('vertspeed', this.value)" /> | 0.001 - 1.0 | <span id="label_noisevertspeed">0.01</span><br>
+					coeff | <input id="slide" type="range" min="0" max="100" step="1" value="0" onchange="updateNoiseInterval('coeff', this.value)" /> | 0.0 - 100.0 | <span id="label_noiseintervalcoeff">0.0</span><br>
+					modulo | <input id="slide" type="range" min="0.001" max="200" step="1" value="100" onchange="updateNoiseInterval('modulo', this.value)" /> | 0.001 - 200.0 | <span id="label_noiseintervalmodulo">100.0</span><br>
+					speed | <input id="slide" type="range" min="0.001" max="100" step="0.1" value="20" onchange="updateNoiseInterval('speed', this.value)" /> | 0.001 - 100.0 | <span id="label_noiseintervalspeed">20.0</span><br>
+				</li>
+				<li>
+					bloom<br />
+					speed | <input id="slide" type="range" min="0.00001" max="0.01" step="0.00001" value="0.001" onchange="updateNoiseBloom('speed', this.value)" /> | 0.00001 - 0.01 | <span id="label_noisebloomspeed">0.001</span><br>
+					intensity | <input id="slide" type="range" min="0.00001" max="0.01" step="0.00001" value="0.00001" onchange="updateNoiseBloom('intensity', this.value)" />  | 0.00001 - 0.01 | <span id="label_noisebloomintensity">0.000001</span><br>
+				</li>
+				<li>
+					tan <br />
+					size | <input id="slide" type="range" min="0.001" max="1" step="0.001" value="0.1" onchange="updateNoiseTan('size', this.value)" /> | 0.001 - 1.0 | <span id="label_noisetansize">0.1</span><br>
+					modulo | <input id="slide" type="range" min="1" max="1000" step="1" value="99." onchange="updateNoiseTan('modulo', this.value)" /> | 1.0 - 1000.0 | <span id="label_noisetanmodulo">99.0</span><br>
+				</li>
+				<li>
+					noise <br />
+					distance | <input id="slide" type="range" min="0.001" max="10000" step="0.0001" value="6000" onchange="updateNoiseOverlay('distance', this.value)" /> | 0.001 - 10000 | <span id="label_noisedistance">6000.0</span><br>
+					size | <input id="slide" type="range" min="0.0001" max="1" step="0.000001" value="0.05" onchange="updateNoiseOverlay('size', this.value)" /> | 0.0001 - 1.0 | <span id="label_noisesize">0.05</span><br>
+					speed | <input id="slide" type="range" min="0.001" max="1" step="0.001" value="0.5" onchange="updateNoiseOverlay('speed', this.value)" /> | 0.001 - 1.0 | <span id="label_noisespeed">0.5</span><br>
+					impact | <input id="slide" type="range" min="0.0001" max="1." step="0.00001" value="0.001" onchange="updateNoiseOverlay('impact', this.value)" /> | 0.0001 - 1.0 | <span id="label_noiseimpact">0.001</span><br>
+				</li>
+			</ul>
 		</div>
 
 	</body>

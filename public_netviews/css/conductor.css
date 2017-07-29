@@ -45,8 +45,31 @@ button{
 	background: #f3f3f3;
 	color: black;
 	border-radius: 4px;
+	margin: 2px;
+}
+
+.important{
+	border-color: red;
+	border-width: 4px;
+}
+
+.introduce{
+	width: 100%;
+	text-align: center;
 }
 
 button:active{
 	background-color: grey;
+}
+
+input[type=checkbox]{
+	background-color: red;
+}
+
+ul{
+	list-style: circle;
+}
+
+li{
+	margin-top: 10px;
 }
