@@ -64,9 +64,9 @@ var text_netviews, text_wosx, text_wuso;
 function initText(){
 	var loader = new THREE.FontLoader();
 	var font = loader.load('../data/de_valencia_regular.typeface.json', function (font){
-		var geometry = new THREE.TextGeometry('netviews',{
+		var geometry = new THREE.TextGeometry('IM',{
 			font: font,
-			size: 20,
+			size: 36,
 			height: 4,
 			curveSegments: 12,
 			bevelEnabled: false
@@ -74,8 +74,8 @@ function initText(){
 
 		var material = new THREE.MeshNormalMaterial();
 		text_netviews = new THREE.Mesh(geometry, material);
-		text_netviews.position.x = -60;
-		text_netviews.position.y = 20;
+		text_netviews.position.x = -25;
+		text_netviews.position.y = 0;
 		stage.add(text_netviews);
 		text_netviews.material.visible = true;
 
